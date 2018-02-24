@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Chronos24hLeMans</string>
+    <string name="version">0.7.2</string>
+    <string name="nom">Nom</string>
+    <string name="courriel">courses@roulezrose.com</string>
+    <!-- Equipe -->
+    <string name="entrez_le_nom_d_equipe">Entrez le nom d\'équipe</string>
+    <string name="nombre_de_coureurs">Nombre de coureurs</string>
+    <string name="liste_des_coureurs">Liste des coureurs</string>
+    <string name="entrez_le_nom_du_coureur">Entrez le nom du coureur</string>
+    <string name="ajouter">Ajouter</string>
+    <!-- Course -->
+    <string name="demarrer">Démarrer</string>
+    <string name="arreter">Arrêter</string>
+    <string name="pause">Pause</string>
+    <string name="coureur_actuel">Coureur actuel</string>
+    <string name="cliquer_sur_demarrer">Démarrer</string>
+    <string name="selectionner_un_coureur">Sélectionner</string>
+    <string name="temps">Temps</string>
+    <string name="continuer">Continuer</string>
+    <string name="passer_relai">Passer relai</string>
+    <string name="coureur_suivant">Coureur suivant</string>
+    <string name="exporter">Exporter</string>
+</resources>

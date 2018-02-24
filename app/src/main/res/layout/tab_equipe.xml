@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/textViewNom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="@string/nom"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+	<EditText
+		android:id="@+id/editTextNomEquipe"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+		android:inputType="textCapSentences"
+		android:layout_below="@+id/textViewNom"
+		android:hint="@string/entrez_le_nom_d_equipe"/>
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="@string/nombre_de_coureurs"
+        android:textStyle="bold"
+		android:layout_below="@+id/editTextNomEquipe"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+	<TextView
+		android:id="@+id/textViewNbCoureurs"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+		android:gravity="center"
+		android:background="#CECECE"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_below="@+id/editTextNomEquipe"
+		android:layout_alignParentEnd="true"
+		android:layout_toEndOf="@+id/imageButtonMonter" />
+    <TextView
+        android:id="@+id/textViewListeCoureur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="@string/liste_des_coureurs"
+        android:textStyle="bold"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_below="@+id/buttonAjouter"
+		android:layout_alignParentStart="true" />
+	<EditText
+		android:id="@+id/editTextNomCoureur"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+		android:hint="@string/entrez_le_nom_du_coureur"
+		android:inputType="textCapSentences"
+		android:layout_below="@+id/textView1"
+		android:layout_alignParentStart="true"
+		android:layout_toStartOf="@+id/buttonAjouter"
+		android:layout_alignParentEnd="true" />
+	<Button
+		android:id="@+id/buttonAjouter"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentStart="true"
+		android:layout_below="@+id/editTextNomCoureur"
+		android:layout_marginStart="24dp"
+		android:gravity="center"
+		android:text="@string/ajouter" />
+	<ImageButton
+		android:id="@+id/imageButtonMonter"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/listViewEquipe"
+		android:layout_marginLeft="60dp"
+		android:layout_toEndOf="@+id/textViewListeCoureur"
+		android:src="@drawable/ic_arrow_up"
+		android:visibility="invisible" />
+	<ImageButton
+		android:id="@+id/imageButtonDescendre"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/listViewEquipe"
+		android:layout_marginLeft="125dp"
+		android:layout_toEndOf="@+id/textViewListeCoureur"
+		android:src="@drawable/ic_arrow_down"
+		android:visibility="invisible" />
+	<CheckBox
+		android:id="@+id/checkBoxActif"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_above="@+id/listViewEquipe"
+		android:layout_marginBottom="15dp"
+		android:layout_marginLeft="10dp"
+		android:layout_toEndOf="@+id/textViewListeCoureur"
+		android:visibility="invisible" />
+    <ListView
+		android:id="@+id/listViewEquipe"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/textViewListeCoureur"
+		android:layout_centerHorizontal="true" />
+</RelativeLayout>

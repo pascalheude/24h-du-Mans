@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+	<Button
+		android:id="@+id/ButtonDemarrer"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_marginStart="20dp"
+		android:layout_marginTop="10dp"
+		android:clickable="true"
+		android:gravity="center"
+		android:text="@string/demarrer" />
+	<Button
+		android:id="@+id/ButtonPause"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ButtonDemarrer"
+		android:gravity="center"
+		android:clickable="true"
+		android:text="@string/pause"
+		android:layout_centerHorizontal="true" />
+	<Button
+       	android:id="@+id/ButtonArreter"
+       	android:layout_width="wrap_content"
+       	android:layout_height="wrap_content"
+		android:layout_toEndOf="@id/ButtonPause"
+		android:layout_marginStart="40dp"
+        android:layout_alignTop="@+id/ButtonDemarrer"
+		android:gravity="center"
+		android:clickable="true"
+		android:text="@string/arreter" />
+    <TextView
+        android:id="@+id/textView0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tour n°"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/ButtonPause" />
+    <TextView
+        android:id="@+id/textViewNbTour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ButtonPause"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:background="#CECECE"
+        android:gravity="center_horizontal"
+		android:text="000"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/coureur_actuel"
+        android:textSize="20sp"
+        android:layout_below="@+id/textView0"
+		android:layout_marginTop="10dp" />
+	<TextView
+		android:id="@+id/textViewNomCoureurEnCourse"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+        android:background="#58FA82"
+		android:gravity="center_horizontal"
+        android:layout_below="@+id/textView0"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/textView1"
+        android:layout_marginLeft="10dp"
+		android:text="@string/cliquer_sur_demarrer"
+		android:textSize="24sp"
+		android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="left"
+        android:text="@string/temps"
+		android:textSize="20sp"
+		android:layout_below="@+id/textView1"
+		android:layout_alignParentStart="true" />
+    <Chronometer
+        android:id="@+id/chronometer"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:background="#CECECE"
+        android:layout_below="@+id/textViewNomCoureurEnCourse"
+        android:layout_alignStart="@+id/textViewNomCoureurEnCourse"
+        android:layout_alignEnd="@+id/textViewNomCoureurEnCourse" />
+	<Button
+		android:id="@+id/buttonContinuer"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/continuer"
+		android:layout_marginTop="11dp"
+		android:clickable="true"
+		android:layout_below="@+id/chronometer"
+		android:layout_alignStart="@+id/ButtonDemarrer" />
+	<Button
+		android:id="@+id/buttonPasserRelai"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/passer_relai"
+		android:layout_marginTop="11dp"
+		android:clickable="true"
+		android:layout_below="@+id/chronometer"
+		android:layout_alignEnd="@+id/ButtonArreter" />
+	<TextView
+        android:id="@+id/textView4"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+		android:text="@string/coureur_suivant"
+        android:textSize="20sp"
+		android:layout_below="@+id/buttonContinuer"
+        android:layout_marginTop="10dp" />
+	<TextView
+		android:id="@+id/textViewProchainCoureur"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonContinuer"
+        android:layout_marginTop="10dp"
+		android:layout_toEndOf="@+id/textView4"
+        android:layout_marginLeft="10dp"
+		android:background="#FF0000"
+		android:gravity="center_horizontal"
+        android:text="@string/selectionner_un_coureur"
+		android:textSize="24sp"
+		android:textStyle="bold" />
+	<ListView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/listViewProchainCoureur"
+		android:layout_below="@+id/textViewProchainCoureur"
+        android:layout_marginTop="10dp"
+		android:layout_alignStart="@+id/textViewProchainCoureur"
+		android:layout_alignEnd="@+id/textViewProchainCoureur" />
+</RelativeLayout>

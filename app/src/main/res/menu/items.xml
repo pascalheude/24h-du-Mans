@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/parametres"
+        android:checkable="false"
+        android:title="Paramètres"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/effacer"
+        android:checkable="false"
+        android:title="Effacer DB"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/exporter"
+        android:checkable="false"
+        android:title="Exporter DB"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/envoyer"
+        android:checkable="false"
+        android:title="Envoyer DB par courriel"
+        android:enabled="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/quitter"
+        android:checkable="false"
+        android:title="Sortir"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/about"
+        android:title="About"
+        android:icon="@drawable/ic_roller"
+        app:showAsAction="always" />
+</menu>

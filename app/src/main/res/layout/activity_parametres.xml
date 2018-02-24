@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.assistanceinformatiquetoulouse.chronos24hlemans.ParametresActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Paramètres"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="130dp"
+        android:layout_marginTop="39dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <CheckBox
+        android:id="@+id/checkBoxVibreur"
+        android:layout_width="201dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="50dp"
+        android:checked="true"
+        android:text="Vibreur actif"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        tools:layout_editor_absoluteX="31dp" />
+
+    <TextView
+        android:id="@+id/TextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="Retard"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxVibreur"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintLeft_toLeftOf="@+id/checkBoxVibreur" />
+
+    <SeekBar
+        android:id="@+id/seekBarRetard"
+        android:layout_width="200dp"
+        android:layout_height="24dp"
+        android:max="100"
+        app:layout_constraintLeft_toRightOf="@+id/TextView2"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@+id/TextView2" />
+
+    <TextView
+        android:id="@+id/textViewRetard"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="66 %"
+        app:layout_constraintLeft_toRightOf="@+id/seekBarRetard"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toTopOf="@+id/seekBarRetard" />
+
+    <TextView
+        android:id="@+id/TextView3"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="Durée"
+        app:layout_constraintTop_toBottomOf="@+id/TextView2"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/TextView2" />
+
+    <SeekBar
+        android:id="@+id/seekBarDuree"
+        android:layout_width="200dp"
+        android:layout_height="24dp"
+        android:max="100"
+        app:layout_constraintLeft_toLeftOf="@+id/seekBarRetard"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarRetard" />
+
+    <TextView
+        android:id="@+id/textViewDuree"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="2 s"
+        app:layout_constraintLeft_toRightOf="@+id/seekBarDuree"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toTopOf="@+id/seekBarDuree" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSortir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activer bouton back"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDuree"
+        tools:layout_editor_absoluteX="31dp"
+        android:layout_marginTop="20dp"/>
+
+</android.support.constraint.ConstraintLayout>
