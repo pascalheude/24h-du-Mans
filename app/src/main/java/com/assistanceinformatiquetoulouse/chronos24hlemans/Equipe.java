@@ -12,6 +12,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 // Class Equipe
 public class Equipe {
     // Atributs privés
+    private static final String TAG = "Equipe";     // Tag pour le log
     private boolean pLireXML;
     private int pNbCoureurMax;                      // Nombre maximum de coureurs
     private Context pContext;                       // Context pour lire et ecrire le fichier XML
@@ -29,7 +30,7 @@ public class Equipe {
         FileInputStream lFileInputStream;
         try {
             //lFile = new File(pContext.getFilesDir().getAbsolutePath(), "equipe.xml");
-            lFile = new File(Chronos24hLeMansActivity.pAbsoluteInternalPath, "equipe.xml");
+            lFile = new File(Chronos24hLeMansActivity.aAbsoluteInternalPath, "equipe.xml");
             lFileInputStream = new FileInputStream(lFile);
             lBytes = new byte[(int) lFile.length()];
             lFileInputStream.read(lBytes);
@@ -38,12 +39,16 @@ public class Equipe {
             for (byte b : lBytes) {
                 lString += String.format("%c", b);
             }
-            Log.i("", "Fichier XML lu");
-            return (lString);
+            Log.i(TAG, "Fichier XML lu");
+            return(lString);
         }
         catch(IOException e) {
-            Log.i("", "Erreur en lisant le fichier XML");
-            return (null);
+            Log.i(TAG, "Erreur en lisant le fichier XML");
+            return(null);
+        }
+        catch(Exception e) {
+            Log.i(TAG, "Autre erreur en lisant le fichier XML");
+            return(null);
         }
     }
 
@@ -60,7 +65,7 @@ public class Equipe {
         FileOutputStream lFileOutputStream;
         try {
             //lFileOutputStream = new FileOutputStream(pContext.getFilesDir().getAbsolutePath() + File.separator + "equipe.xml");
-            lFileOutputStream = new FileOutputStream(Chronos24hLeMansActivity.pAbsoluteInternalPath + File.separator + "equipe.xml");
+            lFileOutputStream = new FileOutputStream(Chronos24hLeMansActivity.aAbsoluteInternalPath + File.separator + "equipe.xml");
             ecrireChaine(lFileOutputStream, "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
             ecrireChaine(lFileOutputStream, String.format("<EQUIPE nom=\"%s\" nombre=\"%d\">", pNomEquipe, pListeCoureurs.size()));
             for (i = 0; i < pListeCoureurs.size(); i++) {
@@ -73,12 +78,12 @@ public class Equipe {
             }
             ecrireChaine(lFileOutputStream, "</EQUIPE>");
             lFileOutputStream.close();
-            Log.i("", "Fichier XML écrit");
+            Log.i(TAG, "Fichier XML écrit");
             return (true);
         }
         catch(IOException e) {
             Toast.makeText(pContext, "Impossible d'écrire le fichier XML", Toast.LENGTH_SHORT).show();
-            Log.i("", "Impossible d'écrire le fichier XML");
+            Log.i(TAG, "Impossible d'écrire le fichier XML");
             return (false);
         }
     }
@@ -140,10 +145,10 @@ public class Equipe {
                 }
                 lEventType = lXmlPullParser.next();
             }
-            Log.i("", "Fichier XML parsé");
+            Log.i(TAG, "Fichier XML parsé");
         }
         catch(XmlPullParserException e) {
-            Log.i("", "Erreur en parsant fichier XML");
+            Log.i(TAG, "Erreur en parsant fichier XML");
             pListeCoureurs.clear();
             pListeCoureursActifs.clear();
             pListeEtatsCoureurs.clear();

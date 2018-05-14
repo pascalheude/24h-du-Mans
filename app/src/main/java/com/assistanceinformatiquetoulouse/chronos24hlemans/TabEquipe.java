@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+
 // Class TabEquipe
 public class TabEquipe extends Fragment {
     // Attributs privés

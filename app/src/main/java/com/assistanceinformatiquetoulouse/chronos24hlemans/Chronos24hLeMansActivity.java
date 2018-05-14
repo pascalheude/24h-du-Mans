@@ -37,8 +37,8 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
     private ResultatSQLiteOpenHelper pResultatSQLiteOpenHelper;
     private static SQLiteDatabase pSQLiteDatabase;
     // Attributs publics
-    public static String pAbsoluteInternalPath;
-    public static String pAbsoluteExternalPath;
+    public static String aAbsoluteInternalPath;
+    public static String aAbsoluteExternalPath;
     public static Vibreur aVibreur;
 
     @Override
@@ -51,8 +51,8 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // Bloquer l'extinction automatique de l'écran
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        pAbsoluteInternalPath = this.getFilesDir().getAbsolutePath();
-        pAbsoluteExternalPath = this.getExternalFilesDir(null).getAbsolutePath();
+        aAbsoluteInternalPath = this.getFilesDir().getAbsolutePath();
+        aAbsoluteExternalPath = this.getExternalFilesDir(null).getAbsolutePath();
         aVibreur = new Vibreur();
         pResultatSQLiteOpenHelper = new ResultatSQLiteOpenHelper(this);
         pSQLiteDatabase = pResultatSQLiteOpenHelper.getWritableDatabase();
@@ -100,7 +100,7 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
             case R.id.about :
                 AlertDialog.Builder lAlertDialog = new AlertDialog.Builder(this);
                 lAlertDialog.setTitle("Chronos24hLeMans\nVersion " + this.getString(R.string.version));
-                lAlertDialog.setMessage("Gestion des temps pour les coureurs des 24h du Mans rollers\n© AIT 2017 (pascalh)\n\nassistanceinformatiquetoulouse@gmail.com");
+                lAlertDialog.setMessage("Gestion des temps pour les coureurs des 24h du Mans rollers\n© AIT 2018 (pascalh)\n\nassistanceinformatiquetoulouse@gmail.com");
                 lAlertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                     }});
@@ -209,7 +209,7 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
             int lNbLigne;
             int lNbColonne;
             lCursor = pSQLiteDatabase.rawQuery("select * from RESULTAT", null);
-            File lFile = new File(pAbsoluteExternalPath + File.separator + nom + ".csv");
+            File lFile = new File(aAbsoluteExternalPath + File.separator + nom + ".csv");
             FileWriter lFileWriter = new FileWriter(lFile);
 
             BufferedWriter lBufferedWriter = new BufferedWriter(lFileWriter);
@@ -245,7 +245,7 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
             }
             return (lFile.getAbsolutePath());
         } catch (IOException e) {
-            Toast.makeText(pContext, String.format("Erreur en écrivant le fichier %s", pAbsoluteExternalPath + File.separator + "resultats.csv"), Toast.LENGTH_LONG).show();
+            Toast.makeText(pContext, String.format("Erreur en écrivant le fichier %s", aAbsoluteExternalPath + File.separator + "resultats.csv"), Toast.LENGTH_LONG).show();
             return (null);
         }
     }
