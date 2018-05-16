@@ -8,6 +8,7 @@ public class StatCoureur {
     private long pTempsMin;
     private long pTempsMoyen;
     private long pTempsMax;
+    private long pTempsTotal;
 
     // Constructeur
     public StatCoureur() {
@@ -16,6 +17,7 @@ public class StatCoureur {
         pTempsMin = Long.MAX_VALUE;
         pTempsMoyen = 0;
         pTempsMax = 0;
+        pTempsTotal = 0;
     }
 
     // Méthode ajouterStat
@@ -33,6 +35,7 @@ public class StatCoureur {
         }
         pTempsMoyen = (pNbTour * pTempsMoyen + temps) / (pNbTour + 1);
         pNbTour++;
+        pTempsTotal += temps;
     }
 
     // Méthode lireNom
@@ -54,4 +57,8 @@ public class StatCoureur {
     // Méthode lireTempsMax
     // Retourne le temps max
     public long lireTempsMax() { return (pTempsMax); }
+
+    // Méthode lireTempsTotal
+    // Retourne le temps total
+    public long lireTempsTotal() { return (pTempsTotal); }
 }

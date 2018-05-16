@@ -103,6 +103,27 @@
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/textViewDuree"
         tools:layout_editor_absoluteX="31dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp" />
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkBoxSortir"
+        android:layout_marginTop="32dp"
+        android:text="km/tour"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxSortir"
+        tools:layout_editor_absoluteX="31dp" />
+
+    <EditText
+        android:id="@+id/editTextkm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:text="4.185"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxSortir" />
 </android.support.constraint.ConstraintLayout>

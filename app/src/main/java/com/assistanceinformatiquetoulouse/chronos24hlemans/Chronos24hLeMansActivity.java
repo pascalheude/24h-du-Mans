@@ -40,6 +40,7 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
     public static String aAbsoluteInternalPath;
     public static String aAbsoluteExternalPath;
     public static Vibreur aVibreur;
+    public static Parametres aParametres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
         aAbsoluteInternalPath = this.getFilesDir().getAbsolutePath();
         aAbsoluteExternalPath = this.getExternalFilesDir(null).getAbsolutePath();
         aVibreur = new Vibreur();
+        aParametres = new Parametres();
         pResultatSQLiteOpenHelper = new ResultatSQLiteOpenHelper(this);
         pSQLiteDatabase = pResultatSQLiteOpenHelper.getWritableDatabase();
         pResultatSQLiteOpenHelper.onCreate(pSQLiteDatabase);
@@ -269,6 +271,12 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
             if (intent.hasExtra("vibreur_duree_out")) {
                 long lDuree = intent.getLongExtra("vibreur_duree_out", (long)20);
                 aVibreur.ecrireRetard(lDuree);
+            }
+            else {
+            }
+            if (intent.hasExtra("distance")) {
+                float distance = intent.getFloatExtra("distance", Parametres.aDistance);
+                aParametres.ecrireDistance(distance);
             }
             else {
             }

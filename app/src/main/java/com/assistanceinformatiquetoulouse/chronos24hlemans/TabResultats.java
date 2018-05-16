@@ -25,6 +25,7 @@ public class TabResultats extends Fragment {
     private TextView pTextViewTempsMini;
     private TextView pTextViewTempsMoyen;
     private TextView pTextViewTempsMax;
+    private TextView pTextViewTempsTotal;
     private GridView pGridViewResultats;
     private static ArrayList<Resultat> pListeResultats;
     private static ArrayList<StatCoureur> pListeStatCoureurs;
@@ -45,6 +46,7 @@ public class TabResultats extends Fragment {
         pTextViewTempsMini = (TextView) lView.findViewById(R.id.textViewTempsMini);
         pTextViewTempsMoyen = (TextView) lView.findViewById(R.id.textViewTempsMoyen);
         pTextViewTempsMax = (TextView) lView.findViewById(R.id.textViewTempsMax);
+        pTextViewTempsTotal = (TextView) lView.findViewById(R.id.textViewTempsTotal);
         pGridViewResultats = (GridView) lView.findViewById(R.id.gridViewResultats);
         pGridViewResultats.setAdapter(pResultatAdapter);
         pGridViewResultats.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,14 +63,16 @@ public class TabResultats extends Fragment {
                     pTextViewTempsMini.setText("-");
                     pTextViewTempsMoyen.setText("-");
                     pTextViewTempsMax.setText("-");
+                    pTextViewTempsTotal.setText("-");
                 }
                 else {
                     lStatCoureur = pListeStatCoureurs.get(lPosition);
                     pTextViewNomCoureur.setText(lStatCoureur.lireNom());
-                    pTextViewNbTour.setText(String.format("%02d", lStatCoureur.lireNombreTours()));
-                    pTextViewTempsMini.setText(String.format("%02d:%02d", (lStatCoureur.lireTempsMini() / (60 * 1000)) % 60, (lStatCoureur.lireTempsMini() / 1000) % 60));
-                    pTextViewTempsMoyen.setText(String.format("%02d:%02d", (lStatCoureur.lireTempsMoyen() / (60 * 1000)) % 60, (lStatCoureur.lireTempsMoyen() / 1000) % 60));
-                    pTextViewTempsMax.setText(String.format("%02d:%02d", (lStatCoureur.lireTempsMax() / (60 * 1000)) % 60, (lStatCoureur.lireTempsMax() / 1000) % 60));
+                    pTextViewNbTour.setText(String.format("%2d (%3.1f kms)", lStatCoureur.lireNombreTours(), (float)lStatCoureur.lireNombreTours() * Chronos24hLeMansActivity.aParametres.lireDistance()));
+                    pTextViewTempsMini.setText(String.format("%02dmin%02ds", (lStatCoureur.lireTempsMini() / (60 * 1000)) % 60, (lStatCoureur.lireTempsMini() / 1000) % 60));
+                    pTextViewTempsMoyen.setText(String.format("%02dmin%02ds", (lStatCoureur.lireTempsMoyen() / (60 * 1000)) % 60, (lStatCoureur.lireTempsMoyen() / 1000) % 60));
+                    pTextViewTempsMax.setText(String.format("%02dmin%02ds", (lStatCoureur.lireTempsMax() / (60 * 1000)) % 60, (lStatCoureur.lireTempsMax() / 1000) % 60));
+                    pTextViewTempsTotal.setText(String.format("%02dh%02dmin%02ds", (lStatCoureur.lireTempsMax() / (3600 * 1000)), (lStatCoureur.lireTempsTotal() / (60 * 1000)) % 60, (lStatCoureur.lireTempsTotal() / 1000) % 60));
                 }
                 // Toast.makeText(view.getContext(), String.format("Position sélectionnée : %d", position), Toast.LENGTH_SHORT).show();
             }
@@ -132,7 +136,7 @@ public class TabResultats extends Fragment {
         }
         // Ecrire dans la base de données
         ContentValues lValues = new ContentValues();
-        SimpleDateFormat lSDF = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        SimpleDateFormat lSDF = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         lValues.put("nom", nom);
         lValues.put("chrono", String.format("%02d:%02d", (duree / (60 * 1000)) % 60, (duree / 1000) % 60));
         lValues.put("heure_debut", lSDF.format(debut));

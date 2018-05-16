@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class ParametresActivity extends AppCompatActivity {
     private TextView pTextViewRetard;
     private TextView pTextViewDuree;
     private CheckBox pCheckBoxSortir;
+    private EditText pEditTextKm;
 
     // Méthode onCreate
     @Override
@@ -34,6 +36,7 @@ public class ParametresActivity extends AppCompatActivity {
         pTextViewRetard = (TextView) findViewById(R.id.textViewRetard);
         pTextViewDuree = (TextView) findViewById(R.id.textViewDuree);
         pCheckBoxSortir = (CheckBox) findViewById(R.id.checkBoxSortir);
+        pEditTextKm = (EditText) findViewById(R.id.editTextkm);
         setSupportActionBar(pToolbar);
         Intent lIntent = getIntent();
         pVibreur = new Vibreur(lIntent.getBooleanExtra("vibreur_actif_in", true),
@@ -109,10 +112,19 @@ public class ParametresActivity extends AppCompatActivity {
     // On écrit l'état et la durée du vibreur dans l'intent
     @Override
     public void finish() {
+        float distance;
+        try {
+            distance = Float.parseFloat(pEditTextKm.getText().toString());
+        }
+        catch(NumberFormatException e) {
+            distance = Parametres.aDistance;
+            pEditTextKm.setText(Float.toString(distance));
+        }
         Intent lIntent = new Intent();
         lIntent.putExtra("vibreur_actif_out", pVibreur.lireEtatActif());
         lIntent.putExtra("vibreur_retard_out", pVibreur.lireRetard());
         lIntent.putExtra("vibreur_duree_out", pVibreur.lireDuree());
+        lIntent.putExtra("distance", distance);
         setResult(RESULT_OK, lIntent);
         super.finish();
     }

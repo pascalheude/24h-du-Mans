@@ -10,14 +10,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:text="Coureur"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/textViewNomCoureur"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/textView1"
         android:layout_marginLeft="100dp"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
         android:layout_below="@+id/textView1"
         android:layout_marginTop="5dp"
         android:text="Nombre tours"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/textViewNbTour"
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_below="@+id/textViewNomCoureur"
         android:layout_marginTop="5dp"
         android:layout_alignLeft="@+id/textViewNomCoureur"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
         android:layout_below="@+id/textView2"
         android:layout_marginTop="5dp"
         android:text="Temps mini"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/textViewTempsMini"
         android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
         android:layout_below="@+id/textViewNbTour"
         android:layout_marginTop="5dp"
         android:layout_alignLeft="@+id/textViewNbTour"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
         android:layout_below="@+id/textView3"
         android:layout_marginTop="5dp"
         android:text="Temps moyen"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/textViewTempsMoyen"
         android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
         android:layout_below="@+id/textViewTempsMini"
         android:layout_marginTop="5dp"
         android:layout_alignLeft="@+id/textViewTempsMini"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
         android:layout_below="@+id/textView4"
         android:layout_marginTop="5dp"
         android:text="Temps max"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/textViewTempsMax"
         android:layout_width="wrap_content"
@@ -81,13 +81,29 @@
         android:layout_below="@+id/textViewTempsMoyen"
         android:layout_marginTop="5dp"
         android:layout_alignLeft="@+id/textViewTempsMoyen"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView5"
+        android:layout_marginTop="5dp"
+        android:text="Temps total"
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/textViewTempsTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTempsMax"
+        android:layout_marginTop="5dp"
+        android:layout_alignLeft="@+id/textViewTempsMax"
+        android:textSize="18sp"/>
     <GridView
         android:id="@+id/gridViewResultats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:numColumns="1"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/textView6"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
