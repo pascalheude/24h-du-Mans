@@ -2,6 +2,7 @@ package com.assistanceinformatiquetoulouse.chronos24hlemans;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
@@ -47,6 +48,11 @@ public class TabCourse extends Fragment {
             }
             else {
             }
+            if (Chronos24hLeMansActivity.aParametres.lireSonActif()) {
+                pMediaPlayer.start();
+            }
+            else {
+            }
         }
     }
     // Attributs privés
@@ -71,6 +77,7 @@ public class TabCourse extends Fragment {
     private ListView pListViewProchainCoureur;
     private CountDownTimer pCountDownTimerContinuer;
     private CountDownTimer pCountDownTimerPasserRelai;
+    private MediaPlayer pMediaPlayer;
 
     // Méthode programmerAlerteCoureur
     private void programmerAlerteCoureur(String nom) {
@@ -103,6 +110,7 @@ public class TabCourse extends Fragment {
         pCourseDemarree = false;
         pPauseDemarree = false;
         pAlerteCoureur = null;
+        pMediaPlayer = MediaPlayer.create(getContext(), R.raw.woodpecker);
     }
 
     // Méthode onCreateView

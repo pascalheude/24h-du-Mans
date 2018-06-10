@@ -16,6 +16,7 @@ public class ParametresActivity extends AppCompatActivity {
     // Attributs privés
     private Vibreur pVibreur;
     private Toolbar pToolbar;
+    private CheckBox pCheckBoxSon;
     private CheckBox pCheckBoxVibreur;
     private SeekBar pSeekBarRetard;
     private SeekBar pSeekBarDuree;
@@ -30,6 +31,7 @@ public class ParametresActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parametres);
         pToolbar = (Toolbar) findViewById(R.id.toolbar);
+        pCheckBoxSon = (CheckBox) findViewById(R.id.checkBoxSon);
         pCheckBoxVibreur = (CheckBox) findViewById(R.id.checkBoxVibreur);
         pSeekBarRetard = (SeekBar) findViewById(R.id.seekBarRetard);
         pSeekBarDuree = (SeekBar) findViewById(R.id.seekBarDuree);
@@ -124,7 +126,8 @@ public class ParametresActivity extends AppCompatActivity {
         lIntent.putExtra("vibreur_actif_out", pVibreur.lireEtatActif());
         lIntent.putExtra("vibreur_retard_out", pVibreur.lireRetard());
         lIntent.putExtra("vibreur_duree_out", pVibreur.lireDuree());
-        lIntent.putExtra("distance", distance);
+        lIntent.putExtra("distance_out", distance);
+        lIntent.putExtra("son_actif_out", pCheckBoxSon.isChecked());
         setResult(RESULT_OK, lIntent);
         super.finish();
     }

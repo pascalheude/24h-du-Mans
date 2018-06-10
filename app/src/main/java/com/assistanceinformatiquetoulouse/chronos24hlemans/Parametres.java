@@ -5,6 +5,7 @@ public class Parametres
 {
     // Attributs privés
     private float pDistance;
+    private boolean pSonActif;
 
     // Atributs publics
     public static final float aDistance = (float)4.185;
@@ -12,6 +13,7 @@ public class Parametres
     // Constructeur
     public Parametres() {
         this.pDistance = aDistance;
+        this.pSonActif = true;
     }
 
     // Méthode ecrireDistance
@@ -23,4 +25,12 @@ public class Parametres
     public float lireDistance() {
         return(this.pDistance);
     }
+
+    // Méthode ecrireSonActif
+    public void ecrireSonActif(boolean sonActif) {
+        this.pSonActif = sonActif; }
+
+    // Méthode lireSonActif
+    public boolean lireSonActif(){
+        return(this.pSonActif); }
 }

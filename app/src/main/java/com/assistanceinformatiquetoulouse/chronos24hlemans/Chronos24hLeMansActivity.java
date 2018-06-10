@@ -270,13 +270,19 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
             }
             if (intent.hasExtra("vibreur_duree_out")) {
                 long lDuree = intent.getLongExtra("vibreur_duree_out", (long)20);
-                aVibreur.ecrireRetard(lDuree);
+                aVibreur.ecrireDuree(lDuree);
             }
             else {
             }
-            if (intent.hasExtra("distance")) {
+            if (intent.hasExtra("distance_out")) {
                 float distance = intent.getFloatExtra("distance", Parametres.aDistance);
                 aParametres.ecrireDistance(distance);
+            }
+            else {
+            }
+            if (intent.hasExtra("son_actif_out")) {
+                boolean sonActif = intent.getBooleanExtra("son_actif_out", true);
+                aParametres.ecrireSonActif(sonActif);
             }
             else {
             }
