@@ -202,7 +202,12 @@ public class Equipe {
     // Méthode lireCoureur
     // Retourne le coureur à la position
     public String lireCoureur(int position) {
-        return (pListeCoureurs.get(position));
+        if (position < pListeCoureurs.size()) {
+            return (pListeCoureurs.get(position));
+        }
+        else {
+            return(null);
+        }
     }
 
     // Méthode lireEtatActif
