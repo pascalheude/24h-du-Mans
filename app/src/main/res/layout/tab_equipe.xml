@@ -39,7 +39,7 @@
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:layout_below="@+id/editTextNomEquipe"
 		android:layout_alignParentEnd="true"
-		android:layout_toEndOf="@+id/imageButtonMonter" />
+		android:layout_toEndOf="@+id/editTextNomCoureur" />
     <TextView
         android:id="@+id/textViewListeCoureur"
         android:layout_width="wrap_content"
@@ -69,24 +69,7 @@
 		android:layout_marginStart="24dp"
 		android:gravity="center"
 		android:text="@string/ajouter" />
-	<ImageButton
-		android:id="@+id/imageButtonMonter"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_above="@+id/listViewEquipe"
-		android:layout_marginLeft="60dp"
-		android:layout_toEndOf="@+id/textViewListeCoureur"
-		android:src="@drawable/ic_arrow_up"
-		android:visibility="invisible" />
-	<ImageButton
-		android:id="@+id/imageButtonDescendre"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_above="@+id/listViewEquipe"
-		android:layout_marginLeft="125dp"
-		android:layout_toEndOf="@+id/textViewListeCoureur"
-		android:src="@drawable/ic_arrow_down"
-		android:visibility="invisible" />
+
 	<CheckBox
 		android:id="@+id/checkBoxActif"
 		android:layout_width="40dp"

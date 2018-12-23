@@ -29,8 +29,6 @@ public class TabEquipe extends Fragment {
     private TextView pTextViewNbCoureurs;
     private EditText pEditTextNomCoureur;
     private Button pBoutonAjouter;
-    private ImageButton pBoutonMonter;
-    private ImageButton pBoutonDescendre;
     private CheckBox pBoiteActif;
     private ListView pListViewEquipe;
     // Attributs publics
@@ -60,8 +58,6 @@ public class TabEquipe extends Fragment {
         pTextViewNbCoureurs.setText(String.format("%d", pNbCoureurs));
         pEditTextNomCoureur = (EditText) lView.findViewById(R.id.editTextNomCoureur);
         pBoutonAjouter = (Button) lView.findViewById(R.id.buttonAjouter);
-        pBoutonMonter = (ImageButton) lView.findViewById(R.id.imageButtonMonter);
-        pBoutonDescendre = (ImageButton) lView.findViewById(R.id.imageButtonDescendre);
         pBoiteActif = (CheckBox) lView.findViewById(R.id.checkBoxActif);
         pListViewEquipe = (ListView) lView.findViewById(R.id.listViewEquipe);
         pListViewEquipe.setAdapter(pCoureurAdapter);
@@ -96,22 +92,6 @@ public class TabEquipe extends Fragment {
                 }
             }
         });
-        pBoutonMonter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pEquipe.inverserCoureurs(pCoureurSelectionne - 1, pCoureurSelectionne);
-                pCoureurAdapter.notifyDataSetChanged();
-                Toast.makeText(v.getContext(), String.format("Inverser %d et %d", pCoureurSelectionne, pCoureurSelectionne - 1), Toast.LENGTH_SHORT).show();
-            }
-        });
-        pBoutonDescendre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pEquipe.inverserCoureurs(pCoureurSelectionne, pCoureurSelectionne + 1);
-                pCoureurAdapter.notifyDataSetChanged();
-                Toast.makeText(v.getContext(), String.format("Inverser %d et %d", pCoureurSelectionne, pCoureurSelectionne + 1), Toast.LENGTH_SHORT).show();
-            }
-        });
         pEditTextNomEquipe.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -130,25 +110,6 @@ public class TabEquipe extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO Changer la couleur de la ligne sélectionnée
                 pCoureurSelectionne = position;
-                if (pNbCoureurs == 1) {
-                    pBoutonMonter.setVisibility(View.INVISIBLE);
-                    pBoutonDescendre.setVisibility(View.INVISIBLE);
-                }
-                else {
-                    if (position == 0) {
-                        pBoutonMonter.setVisibility(View.INVISIBLE);
-                        pBoutonDescendre.setVisibility(View.VISIBLE);
-                    }
-                    else if ((position + 1) == pNbCoureurs) {
-                        pBoutonMonter.setVisibility(View.VISIBLE);
-                        pBoutonDescendre.setVisibility(View.INVISIBLE);
-
-                    }
-                    else {
-                        pBoutonMonter.setVisibility(View.VISIBLE);
-                        pBoutonDescendre.setVisibility(View.VISIBLE);
-                    }
-                }
                 pBoiteActif.setVisibility(View.VISIBLE);
                 pBoiteActif.setChecked(pEquipe.lireEtatActif(position));
                 //Toast.makeText(view.getContext(), String.format("Selection %d", position), Toast.LENGTH_SHORT).show();
@@ -186,16 +147,12 @@ public class TabEquipe extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        pBoutonMonter.setVisibility(View.INVISIBLE);
-        pBoutonDescendre.setVisibility(View.INVISIBLE);
         pBoiteActif.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        pBoutonMonter.setVisibility(View.INVISIBLE);
-        pBoutonDescendre.setVisibility(View.INVISIBLE);
         pBoiteActif.setVisibility(View.INVISIBLE);
     }
 }
