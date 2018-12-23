@@ -1,7 +1,6 @@
 package com.assistanceinformatiquetoulouse.chronos24hlemans;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -12,13 +11,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.Date;
 
 // Class TabCourse
@@ -56,6 +51,8 @@ public class TabCourse extends Fragment {
         }
     }
     // Attributs privés
+    private int pIndexCoureur;
+    private String pNomCoureur;
     private AlerteCoureur pAlerteCoureur;
     private boolean pCourseDemarree;
     private boolean pPauseDemarree;
@@ -64,19 +61,13 @@ public class TabCourse extends Fragment {
     private long pHeureFin;
     private Date pDateFin;
     private long pHeurePause;
-    private CoureurAdapter pCoureurAdapter;
-    private Button pBoutonDemarrer;
+    private CountDownTimer pCountDownTimer;
+    // TODO Utiliser la classe BoutonTemporise plutôt que Button
+    private Button pBoutonCoureur[];
     private Button pBoutonPause;
     private Button pBoutonArreter;
     private TextView pTextViewNbTour;
-    private TextView pTextViewNonCoureurEnCourse;
     private Chronometer pChronometre;
-    private Button pBoutonContinuer;
-    private Button pBoutonPasserRelai;
-    private TextView pTextViewProchainCoureur;
-    private ListView pListViewProchainCoureur;
-    private CountDownTimer pCountDownTimerContinuer;
-    private CountDownTimer pCountDownTimerPasserRelai;
     private MediaPlayer pMediaPlayer;
 
     // Méthode programmerAlerteCoureur
@@ -103,97 +94,126 @@ public class TabCourse extends Fragment {
         }
     }
 
+    // Méthode afficherBouton
+    private void afficherBouton() {
+        int i;
+        for (i = 0; i < 12; i++) {
+            if (TabEquipe.pEquipe.lireCoureur(i) != null) {
+                pBoutonCoureur[i].setText(TabEquipe.pEquipe.lireCoureur(i));
+                pBoutonCoureur[i].setEnabled(TabEquipe.pEquipe.lireEtatActif(i));
+            } else {
+                pBoutonCoureur[i].setText(String.format("Coureur %d", i + 1));
+                pBoutonCoureur[i].setEnabled(false);
+            }
+        }
+    }
+
     // Méthode onCreate
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        pIndexCoureur = 12;
+        pNomCoureur = "";
         pCourseDemarree = false;
         pPauseDemarree = false;
         pAlerteCoureur = null;
         pMediaPlayer = MediaPlayer.create(getContext(), R.raw.woodpecker);
+        pCountDownTimer = new CountDownTimer(5000,5000) {
+            @Override
+            public void onTick(long millisUntilFinished) { }
+
+            @Override
+            public void onFinish() {
+                pBoutonCoureur[pIndexCoureur].setEnabled(true);
+            }
+        };
     }
 
     // Méthode onCreateView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        int i;
+        int id;
+        String lNom;
         final View lView = inflater.inflate(R.layout.tab_course, container, false);
-        pCoureurAdapter = new CoureurAdapter(lView.getContext(), R.layout.list_view_coureur, R.id.textViewCoureur, TabEquipe.pEquipe.lireListeCoureursActifs());
-        pBoutonDemarrer = (Button) lView.findViewById(R.id.ButtonDemarrer);
+        // TODO Remplacer 12 par une constante
+        // TODO Utiliser la classe BoutonTemporise plutôt que Button
+        pBoutonCoureur = new Button[12];
+        for (i = 0; i < 12; i++) {
+            switch (i) {
+                default:
+                case 0:
+                    id = R.id.buttonCoureur1;
+                    break;
+                case 1:
+                    id = R.id.buttonCoureur2;
+                    break;
+                case 2:
+                    id = R.id.buttonCoureur3;
+                    break;
+                case 3:
+                    id = R.id.buttonCoureur4;
+                    break;
+                case 4:
+                    id = R.id.buttonCoureur5;
+                    break;
+                case 5:
+                    id = R.id.buttonCoureur6;
+                    break;
+                case 6:
+                    id = R.id.buttonCoureur7;
+                    break;
+                case 7:
+                    id = R.id.buttonCoureur8;
+                    break;
+                case 8:
+                    id = R.id.buttonCoureur9;
+                    break;
+                case 9:
+                    id = R.id.buttonCoureur10;
+                    break;
+                case 10:
+                    id = R.id.buttonCoureur11;
+                    break;
+                case 11:
+                    id = R.id.buttonCoureur12;
+                    break;
+            }
+            pBoutonCoureur[i] = (Button) lView.findViewById(id);
+            pBoutonCoureur[i].setBackgroundColor(getResources().getColor(R.color.bouton_nonselectionne));
+        }
+        afficherBouton();
         pBoutonPause = (Button) lView.findViewById(R.id.ButtonPause);
         pBoutonArreter = (Button) lView.findViewById(R.id.ButtonArreter);
         pTextViewNbTour = (TextView) lView.findViewById(R.id.textViewNbTour);
-        pTextViewNonCoureurEnCourse = (TextView) lView.findViewById(R.id.textViewNomCoureurEnCourse);
         pChronometre = (Chronometer) lView.findViewById(R.id.chronometer);
-        pBoutonContinuer = (Button) lView.findViewById(R.id.buttonContinuer);
-        pBoutonPasserRelai = (Button) lView.findViewById(R.id.buttonPasserRelai);
-        pTextViewProchainCoureur = (TextView) lView.findViewById(R.id.textViewProchainCoureur);
-        pListViewProchainCoureur = (ListView) lView.findViewById(R.id.listViewProchainCoureur);
-        pListViewProchainCoureur.setAdapter(pCoureurAdapter);
-        // TODO Mettre en paramètres la tempo de 5s
-        pCountDownTimerContinuer = new CountDownTimer(5000,5000) {
-            @Override
-            public void onTick(long millisUntilFinished) { }
-
-            @Override
-            public void onFinish() {
-                pBoutonContinuer.setEnabled(true);
-            }
-        };
-        pCountDownTimerPasserRelai = new CountDownTimer(5000,5000) {
-            @Override
-            public void onTick(long millisUntilFinished) { }
-
-            @Override
-            public void onFinish() {
-                pBoutonPasserRelai.setEnabled(true);
-            }
-        };
-        if (! pCourseDemarree) {
-            pBoutonDemarrer.setEnabled(false);
+        if (!pCourseDemarree) {
             pBoutonPause.setEnabled(false);
             pBoutonArreter.setEnabled(false);
-            pBoutonContinuer.setEnabled(false);
-            pBoutonPasserRelai.setEnabled(false);
+        } else {
         }
-        else {
-        }
-        pBoutonDemarrer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pBoutonDemarrer.setEnabled(false);
-                pBoutonArreter.setEnabled(true);
-                pBoutonPause.setEnabled(true);
-                pBoutonContinuer.setEnabled(true);
-                pBoutonPasserRelai.setEnabled(true);
-                pTextViewNonCoureurEnCourse.setText(pTextViewProchainCoureur.getText());
-                pHeureDebut = SystemClock.elapsedRealtime();
-                pDateDebut = new Date();
-                pChronometre.setBase(pHeureDebut);
-                pChronometre.start();
-                pTextViewProchainCoureur.setText(TabEquipe.pEquipe.lireProchainCoureurActif(pTextViewProchainCoureur.getText().toString()));
-                pTextViewProchainCoureur.setBackgroundColor(Color.parseColor("#0080FF"));
-            }
-        });
         pBoutonPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int i;
                 if (! pPauseDemarree) {
                     pHeurePause = SystemClock.elapsedRealtime() - pChronometre.getBase();
                     pChronometre.stop();
                     arreterAlerteCoureur();
                     pBoutonPause.setText("Reprendre");
                     pBoutonArreter.setEnabled(false);
-                    pBoutonContinuer.setEnabled(false);
-                    pBoutonPasserRelai.setEnabled(false);
+                    for (i = 0; i < 12; i++) {
+                        pBoutonCoureur[i].setEnabled(false);
+                    }
                     pPauseDemarree = true;
-                }
-                else {
+                } else {
                     pChronometre.setBase(SystemClock.elapsedRealtime() - pHeurePause);
                     pChronometre.start();
                     pBoutonPause.setText("Pause");
                     pBoutonArreter.setEnabled(true);
-                    pBoutonContinuer.setEnabled(true);
-                    pBoutonPasserRelai.setEnabled(true);
+                    for (i = 0; i < 12; i++) {
+                        pBoutonCoureur[i].setEnabled(true);
+                    }
                     pPauseDemarree = false;
                 }
             }
@@ -203,99 +223,71 @@ public class TabCourse extends Fragment {
             public void onClick(View view) {
                 int lNbTour;
                 long lDuree;
-                pBoutonDemarrer.setEnabled(false);
                 pBoutonPause.setEnabled(false);
                 pBoutonArreter.setEnabled(false);
-                pBoutonContinuer.setEnabled(false);
-                pBoutonPasserRelai.setEnabled(false);
+                pBoutonCoureur[pIndexCoureur].setBackgroundColor(getResources().getColor(R.color.bouton_nonselectionne));
                 pChronometre.stop();
                 arreterAlerteCoureur();
                 pHeureFin = SystemClock.elapsedRealtime();
                 pDateFin = new Date();
                 lDuree = pHeureFin - pHeureDebut;
-                lNbTour = TabResultats.ajouterResultat(pTextViewNonCoureurEnCourse.getText().toString(), pDateDebut, pDateFin, lDuree);
+                lNbTour = TabResultats.ajouterResultat(pNomCoureur, pDateDebut, pDateFin, lDuree);
                 pTextViewNbTour.setText(String.format("%03d", lNbTour));
-                pTextViewNonCoureurEnCourse.setText("");
-                pTextViewProchainCoureur.setText("");
-                pTextViewProchainCoureur.setBackgroundColor(Color.RED);
                 pCourseDemarree = false;
+                pNomCoureur = "";
+                pIndexCoureur = 12;
             }
         });
-        pBoutonContinuer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int lNbTour;
-                long lDuree;
-                pChronometre.stop();
-                arreterAlerteCoureur();
-                pHeureFin = SystemClock.elapsedRealtime();
-                pDateFin = new Date();
-                lDuree = pHeureFin - pHeureDebut;
-                pChronometre.setBase(pHeureFin);
-                lNbTour = TabResultats.ajouterResultat(pTextViewNonCoureurEnCourse.getText().toString(), pDateDebut, pDateFin, lDuree);
-                pTextViewNbTour.setText(String.format("%03d", lNbTour));
-                pDateDebut = new Date();
-                pHeureDebut = pHeureFin;
-                pChronometre.start();
-                programmerAlerteCoureur(pTextViewNonCoureurEnCourse.getText().toString());
-                pBoutonContinuer.setEnabled(false);
-                pCountDownTimerContinuer.start();
-            }
-        });
-        pBoutonPasserRelai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int lNbTour;
-                int position;
-                long lDuree;
-                if (pTextViewProchainCoureur.getText().equals("")) {
-                    Toast.makeText(view.getContext(), "Sélectionner un coureur dans la liste", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    pChronometre.stop();
-                    arreterAlerteCoureur();
-                    pHeureFin = SystemClock.elapsedRealtime();
-                    pDateFin = new Date();
-                    lDuree = pHeureFin - pHeureDebut;
-                    pChronometre.setBase(pHeureFin);
-                    lNbTour = TabResultats.ajouterResultat(pTextViewNonCoureurEnCourse.getText().toString(), pDateDebut, pDateFin, lDuree);
-                    pTextViewNbTour.setText(String.format("%03d", lNbTour));
+        for (i = 0; i < 12; i++) {
+            final int final_i = i;
+            pBoutonCoureur[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int lNbTour;
+                    long lDuree;
+                    if (pCourseDemarree) {
+                        pBoutonCoureur[pIndexCoureur].setBackgroundColor(getResources().getColor(R.color.bouton_nonselectionne));
+                        pChronometre.stop();
+                        arreterAlerteCoureur();
+                        pHeureFin = SystemClock.elapsedRealtime();
+                        pDateFin = new Date();
+                        lDuree = pHeureFin - pHeureDebut;
+                        pHeureDebut = pHeureFin;
+                        pChronometre.setBase(pHeureFin);
+                        lNbTour = TabResultats.ajouterResultat(pNomCoureur, pDateDebut, pDateFin, lDuree);
+                        pTextViewNbTour.setText(String.format("%03d", lNbTour));
+                    } else {
+                        pCourseDemarree = true;
+                        pBoutonArreter.setEnabled(true);
+                        pBoutonPause.setEnabled(true);
+                        pHeureDebut = SystemClock.elapsedRealtime();
+                        pChronometre.setBase(pHeureDebut);
+                    }
                     pDateDebut = new Date();
-                    pHeureDebut = pHeureFin;
                     pChronometre.start();
-                    programmerAlerteCoureur(pTextViewProchainCoureur.getText().toString());
-                    pTextViewNonCoureurEnCourse.setText(pTextViewProchainCoureur.getText());
-                    pTextViewProchainCoureur.setText(TabEquipe.pEquipe.lireProchainCoureurActif(pTextViewProchainCoureur.getText().toString()));
-                    pTextViewProchainCoureur.setBackgroundColor(Color.parseColor("#0080FF"));
-                    pBoutonPasserRelai.setEnabled(false);
-                    pCountDownTimerPasserRelai.start();
+                    pIndexCoureur = final_i;
+                    pNomCoureur = TabEquipe.pEquipe.lireCoureur(final_i);
+                    programmerAlerteCoureur(pNomCoureur);
+                    pBoutonCoureur[final_i].setEnabled(false);
+                    pBoutonCoureur[final_i].setBackgroundColor(getResources().getColor(R.color.bouton_selectionne));
+                    // TODO Utiliser la classe BoutonTemporise plutôt que Button => supprimer pCountDownTimer
+                    // pBoutonCoureur[final_i].start();
+                    pCountDownTimer.start();
                 }
-            }
-        });
-        pListViewProchainCoureur.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                //pTextViewProchainCoureur.setText(TabEquipe.pEquipe.lireCoureur(position));
-                pTextViewProchainCoureur.setText(pListViewProchainCoureur.getItemAtPosition(position).toString());
-                pTextViewProchainCoureur.setBackgroundColor(Color.parseColor("#CECECE"));
-                if (! pCourseDemarree) {
-                    pBoutonDemarrer.setEnabled(true);
-                    pCourseDemarree = true;
-                }
-                else {
-                }
-                return (true);
-            }
-        });
-        //Returning the layout file after inflating
-        //Change R.layout.tab_course in you classes
-        return (lView);
+            });
+        }
+        return(lView);
     }
 
-    // Méthode onResume
+    // Méthode setUserVisibleHint
+    // Cette méthode est appelée lorsque le fragment dans le pager redevient visible
     @Override
-    public void onResume() {
-        super.onResume();
-        pCoureurAdapter.notifyDataSetChanged();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser == true) {
+            afficherBouton();
+        }
+        else {
+        }
     }
 }

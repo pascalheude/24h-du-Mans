@@ -6,12 +6,15 @@ import android.widget.Button;
 
 // Class BoutonTemporise
 public class BouttonTemporise extends Button {
+    // Attributs privés
+    TemporisationBouton pCountDownTimer;
     // Classe privée
-    private class A extends CountDownTimer {
+    private class TemporisationBouton extends CountDownTimer {
         // Constructeur
-        public A (long startTime, long interval) {
-            super(startTime, interval);
+        public TemporisationBouton(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
         }
+
         // Méthode onTick
         // Ne rien faire
         @Override
@@ -24,7 +27,17 @@ public class BouttonTemporise extends Button {
             BouttonTemporise.this.setEnabled(true);
         }
     }
+
+    // Constructeur
+    // TODO Mettre en paramètres la tempo de 5s
     public BouttonTemporise(Context context) {
         super(context);
+        pCountDownTimer = new TemporisationBouton(5000, 5000);
+    }
+
+    // Méthode start
+    public void start() {
+        this.setEnabled(false);
+        pCountDownTimer.start();
     }
 }

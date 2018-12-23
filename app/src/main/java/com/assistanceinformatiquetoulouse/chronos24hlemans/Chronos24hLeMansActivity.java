@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -79,13 +80,23 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
         pViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(pTabLayout));
         //Adding onTabSelectedListener to swipe views
         pTabLayout.setOnTabSelectedListener(this);
-// TODO : les lignes suivantes ne fonctionnent pas (suppression des barres haute et basse)
-        /*getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        // remove the following flag for version < API 19
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);*/
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN |
+                                                         View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                                                         View.SYSTEM_UI_FLAG_LOW_PROFILE);
+        getWindow().getDecorView().setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0) {
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                                         WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                }
+                else {
+                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN |
+                                                                     View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                                                                     View.SYSTEM_UI_FLAG_LOW_PROFILE);
+                }
+            }
+        });
     }
 
     @Override
@@ -143,8 +154,8 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) { }
                             }).show();
-                    // Rend selectable le 2ème menu (R.id.envoyer)
-                    pToolbar.getMenu().getItem(2).setEnabled(true);
+                    // Rend selectable le menu (R.id.envoyer)
+                    pToolbar.getMenu().findItem(R.id.envoyer).setEnabled(true);
                 }
                 else {
                 }

@@ -4,143 +4,193 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-	<Button
-		android:id="@+id/ButtonDemarrer"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentTop="true"
-		android:layout_marginStart="20dp"
-		android:layout_marginTop="10dp"
-		android:clickable="true"
-		android:gravity="center"
-		android:text="@string/demarrer" />
+
 	<Button
 		android:id="@+id/ButtonPause"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/ButtonDemarrer"
-		android:gravity="center"
+		android:layout_alignParentTop="true"
+		android:layout_marginStart="60dp"
 		android:clickable="true"
-		android:text="@string/pause"
-		android:layout_centerHorizontal="true" />
+		android:gravity="center"
+		android:text="@string/pause" />
 	<Button
-       	android:id="@+id/ButtonArreter"
-       	android:layout_width="wrap_content"
-       	android:layout_height="wrap_content"
-		android:layout_toEndOf="@id/ButtonPause"
-		android:layout_marginStart="40dp"
-        android:layout_alignTop="@+id/ButtonDemarrer"
-		android:gravity="center"
+		android:id="@+id/ButtonArreter"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:layout_marginEnd="60dp"
 		android:clickable="true"
+		android:gravity="center"
 		android:text="@string/arreter" />
     <TextView
         android:id="@+id/textView0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tour n°"
-        android:textSize="20sp"
+		android:layout_below="@+id/ButtonPause"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/ButtonPause" />
+		android:layout_marginStart="60dp"
+		android:textSize="20sp"
+        android:text="TOUR" />
+	<TextView
+		android:id="@+id/textView3"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/ButtonArreter"
+		android:layout_alignParentRight="true"
+		android:layout_marginTop="10dp"
+		android:layout_marginEnd="60dp"
+		android:text="@string/temps"
+		android:textSize="20sp" />
     <TextView
         android:id="@+id/textViewNbTour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ButtonPause"
+        android:layout_below="@+id/textView0"
         android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
+		android:layout_marginStart="60dp"
         android:background="#CECECE"
         android:gravity="center_horizontal"
 		android:text="000"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"/>
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/coureur_actuel"
-        android:textSize="20sp"
-        android:layout_below="@+id/textView0"
-		android:layout_marginTop="10dp" />
-	<TextView
-		android:id="@+id/textViewNomCoureurEnCourse"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-        android:background="#58FA82"
-		android:gravity="center_horizontal"
-        android:layout_below="@+id/textView0"
-        android:layout_marginTop="10dp"
-        android:layout_toEndOf="@+id/textView1"
-        android:layout_marginLeft="10dp"
-		android:text="@string/cliquer_sur_demarrer"
-		android:textSize="24sp"
-		android:textStyle="bold" />
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="left"
-        android:text="@string/temps"
-		android:textSize="20sp"
-		android:layout_below="@+id/textView1"
-		android:layout_alignParentStart="true" />
-    <Chronometer
-        android:id="@+id/chronometer"
+	<Chronometer
+		android:id="@+id/chronometer"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:background="#CECECE"
-        android:layout_below="@+id/textViewNomCoureurEnCourse"
-        android:layout_alignStart="@+id/textViewNomCoureurEnCourse"
-        android:layout_alignEnd="@+id/textViewNomCoureurEnCourse" />
+		android:layout_below="@+id/textView3"
+		android:layout_alignParentRight="true"
+		android:layout_marginTop="10dp"
+		android:layout_marginEnd="60dp"
+		android:background="#CECECE"
+		android:gravity="center"
+		android:textSize="24sp" />
 	<Button
-		android:id="@+id/buttonContinuer"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/continuer"
-		android:layout_marginTop="11dp"
-		android:clickable="true"
-		android:layout_below="@+id/chronometer"
-		android:layout_alignStart="@+id/ButtonDemarrer" />
+		android:id="@+id/buttonCoureur1"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="@dimen/bouton_coureur_hauteur"
+		android:layout_below="@+id/textViewNbTour"
+		android:layout_marginTop="20dp"
+		android:layout_marginStart="@dimen/marge_bouton"
+		android:text="Coureur 1"
+		android:textSize="@dimen/bouton_taille_texte"
+		android:clickable="true" />
 	<Button
-		android:id="@+id/buttonPasserRelai"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/passer_relai"
-		android:layout_marginTop="11dp"
-		android:clickable="true"
+		android:id="@+id/buttonCoureur2"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="@dimen/bouton_coureur_hauteur"
 		android:layout_below="@+id/chronometer"
-		android:layout_alignEnd="@+id/ButtonArreter" />
-	<TextView
-        android:id="@+id/textView4"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:gravity="center"
-		android:text="@string/coureur_suivant"
-        android:textSize="20sp"
-		android:layout_below="@+id/buttonContinuer"
-        android:layout_marginTop="10dp" />
-	<TextView
-		android:id="@+id/textViewProchainCoureur"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonContinuer"
-        android:layout_marginTop="10dp"
-		android:layout_toEndOf="@+id/textView4"
-        android:layout_marginLeft="10dp"
-		android:background="#FF0000"
-		android:gravity="center_horizontal"
-        android:text="@string/selectionner_un_coureur"
-		android:textSize="24sp"
-		android:textStyle="bold" />
-	<ListView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:id="@+id/listViewProchainCoureur"
-		android:layout_below="@+id/textViewProchainCoureur"
-        android:layout_marginTop="10dp"
-		android:layout_alignStart="@+id/textViewProchainCoureur"
-		android:layout_alignEnd="@+id/textViewProchainCoureur" />
+		android:layout_alignParentRight="true"
+		android:layout_marginTop="20dp"
+		android:layout_marginEnd="@dimen/marge_bouton"
+		android:text="Coureur 2"
+		android:textSize="@dimen/bouton_taille_texte"
+		android:clickable="true" />
+	<Button
+		android:id="@+id/buttonCoureur3"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="@dimen/bouton_coureur_hauteur"
+		android:layout_below="@+id/buttonCoureur1"
+		android:layout_marginTop="@dimen/espace_bouton"
+		android:layout_marginStart="@dimen/marge_bouton"
+		android:text="Coureur 3"
+		android:textSize="@dimen/bouton_taille_texte"
+		android:clickable="true" />
+	<Button
+		android:id="@+id/buttonCoureur4"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="@dimen/bouton_coureur_hauteur"
+		android:layout_below="@+id/buttonCoureur2"
+		android:layout_alignParentRight="true"
+		android:layout_marginTop="@dimen/espace_bouton"
+		android:layout_marginEnd="@dimen/marge_bouton"
+		android:text="Coureur 4"
+		android:textSize="@dimen/bouton_taille_texte"
+		android:clickable="true" />
+	<Button
+		android:id="@+id/buttonCoureur5"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="@dimen/bouton_coureur_hauteur"
+		android:layout_below="@+id/buttonCoureur3"
+		android:layout_marginTop="@dimen/espace_bouton"
+		android:layout_marginStart="@dimen/marge_bouton"
+		android:text="Coureur 5"
+		android:textSize="@dimen/bouton_taille_texte"
+		android:clickable="true" />
+	<Button
+		android:id="@+id/buttonCoureur6"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="@dimen/bouton_coureur_hauteur"
+		android:layout_below="@+id/buttonCoureur4"
+		android:layout_alignParentRight="true"
+		android:layout_marginTop="@dimen/espace_bouton"
+		android:layout_marginEnd="@dimen/marge_bouton"
+		android:text="Coureur 6"
+		android:textSize="@dimen/bouton_taille_texte"
+		android:clickable="true" />
+	<Button
+		android:id="@+id/buttonCoureur7"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="@dimen/bouton_coureur_hauteur"
+		android:layout_below="@+id/buttonCoureur5"
+		android:layout_marginTop="@dimen/espace_bouton"
+		android:layout_marginStart="@dimen/marge_bouton"
+		android:text="Coureur 7"
+		android:textSize="@dimen/bouton_taille_texte"
+		android:clickable="true" />
+	<Button
+		android:id="@+id/buttonCoureur8"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="@dimen/bouton_coureur_hauteur"
+		android:layout_below="@+id/buttonCoureur6"
+		android:layout_alignParentRight="true"
+		android:layout_marginTop="@dimen/espace_bouton"
+		android:layout_marginEnd="@dimen/marge_bouton"
+		android:text="Coureur 8"
+		android:textSize="@dimen/bouton_taille_texte"
+		android:clickable="true" />
+	<Button
+		android:id="@+id/buttonCoureur9"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="@dimen/bouton_coureur_hauteur"
+		android:layout_below="@+id/buttonCoureur7"
+		android:layout_marginTop="@dimen/espace_bouton"
+		android:layout_marginStart="@dimen/marge_bouton"
+		android:text="Coureur 9"
+		android:textSize="@dimen/bouton_taille_texte"
+		android:clickable="true" />
+	<Button
+		android:id="@+id/buttonCoureur10"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="@dimen/bouton_coureur_hauteur"
+		android:layout_below="@+id/buttonCoureur8"
+		android:layout_alignParentRight="true"
+		android:layout_marginTop="@dimen/espace_bouton"
+		android:layout_marginEnd="@dimen/marge_bouton"
+		android:text="Coureur 10"
+		android:textSize="@dimen/bouton_taille_texte"
+		android:clickable="true" />
+	<Button
+		android:id="@+id/buttonCoureur11"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="@dimen/bouton_coureur_hauteur"
+		android:layout_below="@+id/buttonCoureur9"
+		android:layout_marginTop="@dimen/espace_bouton"
+		android:layout_marginStart="@dimen/marge_bouton"
+		android:text="Coureur 11"
+		android:textSize="@dimen/bouton_taille_texte"
+		android:clickable="true" />
+	<Button
+		android:id="@+id/buttonCoureur12"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="@dimen/bouton_coureur_hauteur"
+		android:layout_below="@+id/buttonCoureur10"
+		android:layout_alignParentRight="true"
+		android:layout_marginTop="@dimen/espace_bouton"
+		android:layout_marginEnd="@dimen/marge_bouton"
+		android:text="Coureur 12"
+		android:textSize="@dimen/bouton_taille_texte"
+		android:clickable="true" />
+
 </RelativeLayout>
