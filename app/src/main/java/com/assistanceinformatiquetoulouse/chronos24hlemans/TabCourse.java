@@ -61,9 +61,7 @@ public class TabCourse extends Fragment {
     private long pHeureFin;
     private Date pDateFin;
     private long pHeurePause;
-    private CountDownTimer pCountDownTimer;
-    // TODO Utiliser la classe BoutonTemporise plutôt que Button
-    private Button pBoutonCoureur[];
+    private BoutonTemporise pBoutonCoureur[];
     private Button pBoutonPause;
     private Button pBoutonArreter;
     private TextView pTextViewNbTour;
@@ -118,15 +116,6 @@ public class TabCourse extends Fragment {
         pPauseDemarree = false;
         pAlerteCoureur = null;
         pMediaPlayer = MediaPlayer.create(getContext(), R.raw.woodpecker);
-        pCountDownTimer = new CountDownTimer(5000,5000) {
-            @Override
-            public void onTick(long millisUntilFinished) { }
-
-            @Override
-            public void onFinish() {
-                pBoutonCoureur[pIndexCoureur].setEnabled(true);
-            }
-        };
     }
 
     // Méthode onCreateView
@@ -137,8 +126,7 @@ public class TabCourse extends Fragment {
         String lNom;
         final View lView = inflater.inflate(R.layout.tab_course, container, false);
         // TODO Remplacer 12 par une constante
-        // TODO Utiliser la classe BoutonTemporise plutôt que Button
-        pBoutonCoureur = new Button[12];
+        pBoutonCoureur = new BoutonTemporise[12];
         for (i = 0; i < 12; i++) {
             switch (i) {
                 default:
@@ -179,7 +167,7 @@ public class TabCourse extends Fragment {
                     id = R.id.buttonCoureur12;
                     break;
             }
-            pBoutonCoureur[i] = (Button) lView.findViewById(id);
+            pBoutonCoureur[i] = (BoutonTemporise) lView.findViewById(id);
             pBoutonCoureur[i].setBackgroundColor(getResources().getColor(R.color.bouton_nonselectionne));
         }
         afficherBouton();
@@ -270,9 +258,7 @@ public class TabCourse extends Fragment {
                     programmerAlerteCoureur(pNomCoureur);
                     pBoutonCoureur[final_i].setEnabled(false);
                     pBoutonCoureur[final_i].setBackgroundColor(getResources().getColor(R.color.bouton_selectionne));
-                    // TODO Utiliser la classe BoutonTemporise plutôt que Button => supprimer pCountDownTimer
-                    // pBoutonCoureur[final_i].start();
-                    pCountDownTimer.start();
+                    pBoutonCoureur[final_i].start();
                 }
             });
         }

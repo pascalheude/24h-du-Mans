@@ -66,7 +66,7 @@
 		android:background="#CECECE"
 		android:gravity="center"
 		android:textSize="24sp" />
-	<Button
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
 		android:id="@+id/buttonCoureur1"
 		android:layout_width="@dimen/bouton_coureur_largeur"
 		android:layout_height="@dimen/bouton_coureur_hauteur"
@@ -76,7 +76,7 @@
 		android:text="Coureur 1"
 		android:textSize="@dimen/bouton_taille_texte"
 		android:clickable="true" />
-	<Button
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
 		android:id="@+id/buttonCoureur2"
 		android:layout_width="@dimen/bouton_coureur_largeur"
 		android:layout_height="@dimen/bouton_coureur_hauteur"
@@ -87,7 +87,7 @@
 		android:text="Coureur 2"
 		android:textSize="@dimen/bouton_taille_texte"
 		android:clickable="true" />
-	<Button
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
 		android:id="@+id/buttonCoureur3"
 		android:layout_width="@dimen/bouton_coureur_largeur"
 		android:layout_height="@dimen/bouton_coureur_hauteur"
@@ -97,7 +97,7 @@
 		android:text="Coureur 3"
 		android:textSize="@dimen/bouton_taille_texte"
 		android:clickable="true" />
-	<Button
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
 		android:id="@+id/buttonCoureur4"
 		android:layout_width="@dimen/bouton_coureur_largeur"
 		android:layout_height="@dimen/bouton_coureur_hauteur"
@@ -108,7 +108,7 @@
 		android:text="Coureur 4"
 		android:textSize="@dimen/bouton_taille_texte"
 		android:clickable="true" />
-	<Button
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
 		android:id="@+id/buttonCoureur5"
 		android:layout_width="@dimen/bouton_coureur_largeur"
 		android:layout_height="@dimen/bouton_coureur_hauteur"
@@ -118,7 +118,7 @@
 		android:text="Coureur 5"
 		android:textSize="@dimen/bouton_taille_texte"
 		android:clickable="true" />
-	<Button
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
 		android:id="@+id/buttonCoureur6"
 		android:layout_width="@dimen/bouton_coureur_largeur"
 		android:layout_height="@dimen/bouton_coureur_hauteur"
@@ -129,7 +129,7 @@
 		android:text="Coureur 6"
 		android:textSize="@dimen/bouton_taille_texte"
 		android:clickable="true" />
-	<Button
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
 		android:id="@+id/buttonCoureur7"
 		android:layout_width="@dimen/bouton_coureur_largeur"
 		android:layout_height="@dimen/bouton_coureur_hauteur"
@@ -139,7 +139,7 @@
 		android:text="Coureur 7"
 		android:textSize="@dimen/bouton_taille_texte"
 		android:clickable="true" />
-	<Button
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
 		android:id="@+id/buttonCoureur8"
 		android:layout_width="@dimen/bouton_coureur_largeur"
 		android:layout_height="@dimen/bouton_coureur_hauteur"
@@ -150,7 +150,7 @@
 		android:text="Coureur 8"
 		android:textSize="@dimen/bouton_taille_texte"
 		android:clickable="true" />
-	<Button
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
 		android:id="@+id/buttonCoureur9"
 		android:layout_width="@dimen/bouton_coureur_largeur"
 		android:layout_height="@dimen/bouton_coureur_hauteur"
@@ -160,7 +160,7 @@
 		android:text="Coureur 9"
 		android:textSize="@dimen/bouton_taille_texte"
 		android:clickable="true" />
-	<Button
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
 		android:id="@+id/buttonCoureur10"
 		android:layout_width="@dimen/bouton_coureur_largeur"
 		android:layout_height="@dimen/bouton_coureur_hauteur"
@@ -171,7 +171,7 @@
 		android:text="Coureur 10"
 		android:textSize="@dimen/bouton_taille_texte"
 		android:clickable="true" />
-	<Button
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
 		android:id="@+id/buttonCoureur11"
 		android:layout_width="@dimen/bouton_coureur_largeur"
 		android:layout_height="@dimen/bouton_coureur_hauteur"
@@ -181,7 +181,7 @@
 		android:text="Coureur 11"
 		android:textSize="@dimen/bouton_taille_texte"
 		android:clickable="true" />
-	<Button
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
 		android:id="@+id/buttonCoureur12"
 		android:layout_width="@dimen/bouton_coureur_largeur"
 		android:layout_height="@dimen/bouton_coureur_hauteur"

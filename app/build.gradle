@@ -8,7 +8,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
-        versionName '2.0.1'
+        versionName '2.0.2'
         archivesBaseName = "AIT-Chronos24hLeMans-$versionName"
     }
     buildTypes {
