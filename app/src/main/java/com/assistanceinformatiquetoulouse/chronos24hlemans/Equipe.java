@@ -303,4 +303,10 @@ public class Equipe {
         }
         ecrireXMLEquipe();
     }
+
+    // Méthode lireNombreMaxCoureur
+    // Retourne le nommbre maximum de coureurs
+    public int lireNombreMaxCoureur() {
+        return (this.pNbCoureurMax);
+    }
 }

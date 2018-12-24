@@ -192,5 +192,15 @@
 		android:text="Coureur 12"
 		android:textSize="@dimen/bouton_taille_texte"
 		android:clickable="true" />
+	<com.assistanceinformatiquetoulouse.chronos24hlemans.BoutonTemporise
+		android:id="@+id/buttonCoureurBidon"
+		android:layout_width="@dimen/bouton_coureur_largeur"
+		android:layout_height="5dp"
+		android:layout_below="@+id/buttonCoureur11"
+		android:layout_marginTop="@dimen/espace_bouton"
+		android:layout_marginStart="@dimen/marge_bouton"
+		android:text=""
+		android:visibility="invisible"
+		android:clickable="false" />
 
 </RelativeLayout>

@@ -30,22 +30,28 @@ public class BoutonTemporise extends Button {
     }
 
     // Constructeur
-    // TODO Mettre en paramètres la tempo de 5s
     public BoutonTemporise(Context context) {
         super(context);
-        pCountDownTimer = new TemporisationBouton(5000, 5000);
     }
 
     // Constructeur
     // Ce constructeur est nécessaire afin d'éviter une exception java.lang.NoSuchMethodException
     public BoutonTemporise(Context context, AttributeSet attrs) {
         super(context, attrs);
-        pCountDownTimer = new TemporisationBouton(5000, 5000);
     }
 
     // Méthode start
     public void start() {
-        this.setEnabled(false);
-        pCountDownTimer.start();
+        if (pCountDownTimer != null) {
+            this.setEnabled(false);
+            pCountDownTimer.start();
+        }
+        else {
+        }
+    }
+
+    // Méthode ecrireTemporisation
+    public void ecrireTemporisation(long temporisation) {
+        pCountDownTimer = new TemporisationBouton(temporisation, temporisation);
     }
 }

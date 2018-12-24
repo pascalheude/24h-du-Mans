@@ -17,8 +17,7 @@ import java.util.Date;
 public class TabResultats extends Fragment {
     // Atributs privés
     private final int kNbResultatMax = 300;
-    // TODO Supprimer la déclaration en double
-    private final int kNbCoureurMax = 20;
+    private int pNbCoureurMax;
     private static ResultatAdapter pResultatAdapter;
     private TextView pTextViewNomCoureur;
     private TextView pTextViewNbTour;
@@ -32,8 +31,9 @@ public class TabResultats extends Fragment {
 
     // Constructeur
     public TabResultats() {
+        pNbCoureurMax = TabEquipe.pEquipe.lireNombreMaxCoureur();
         pListeResultats = new ArrayList<Resultat>(kNbResultatMax);
-        pListeStatCoureurs = new ArrayList<StatCoureur>(kNbCoureurMax);
+        pListeStatCoureurs = new ArrayList<StatCoureur>(pNbCoureurMax);
     }
 
     // Méthode onCreateView

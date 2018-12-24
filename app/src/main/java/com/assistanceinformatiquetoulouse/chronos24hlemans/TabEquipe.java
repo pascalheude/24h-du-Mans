@@ -21,7 +21,7 @@ import java.io.UnsupportedEncodingException;
 // Class TabEquipe
 public class TabEquipe extends Fragment {
     // Attributs privés
-    private final int kNbCoureurMax = 20;
+    private final int kNbCoureurMax = 12;
     private int pNbCoureurs;
     private int pCoureurSelectionne;
     private CoureurAdapter pCoureurAdapter;
@@ -108,7 +108,6 @@ public class TabEquipe extends Fragment {
         pListViewEquipe.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO Changer la couleur de la ligne sélectionnée
                 pCoureurSelectionne = position;
                 pBoiteActif.setVisibility(View.VISIBLE);
                 pBoiteActif.setChecked(pEquipe.lireEtatActif(position));

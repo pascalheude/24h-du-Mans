@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.Date;
 
 // Class TabCourse
@@ -51,6 +53,8 @@ public class TabCourse extends Fragment {
         }
     }
     // Attributs privés
+    private final long TEMPORISATION = 5000;
+    private int pNbCoureur;
     private int pIndexCoureur;
     private String pNomCoureur;
     private AlerteCoureur pAlerteCoureur;
@@ -95,7 +99,7 @@ public class TabCourse extends Fragment {
     // Méthode afficherBouton
     private void afficherBouton() {
         int i;
-        for (i = 0; i < 12; i++) {
+        for (i = 0; i < pNbCoureur; i++) {
             if (TabEquipe.pEquipe.lireCoureur(i) != null) {
                 pBoutonCoureur[i].setText(TabEquipe.pEquipe.lireCoureur(i));
                 pBoutonCoureur[i].setEnabled(TabEquipe.pEquipe.lireEtatActif(i));
@@ -106,11 +110,16 @@ public class TabCourse extends Fragment {
         }
     }
 
+    // Constructeur
+    public TabCourse() {
+        pNbCoureur = TabEquipe.pEquipe.lireNombreMaxCoureur();
+    }
+
     // Méthode onCreate
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pIndexCoureur = 12;
+        pIndexCoureur = pNbCoureur;
         pNomCoureur = "";
         pCourseDemarree = false;
         pPauseDemarree = false;
@@ -125,11 +134,13 @@ public class TabCourse extends Fragment {
         int id;
         String lNom;
         final View lView = inflater.inflate(R.layout.tab_course, container, false);
-        // TODO Remplacer 12 par une constante
-        pBoutonCoureur = new BoutonTemporise[12];
-        for (i = 0; i < 12; i++) {
+        pBoutonCoureur = new BoutonTemporise[pNbCoureur];
+        for (i = 0; i < pNbCoureur; i++) {
             switch (i) {
                 default:
+                    id = R.id.buttonCoureurBidon;
+                    Toast.makeText(lView.getContext(), String.format("Coureur %d ignoré", i), Toast.LENGTH_SHORT).show();
+                    break;
                 case 0:
                     id = R.id.buttonCoureur1;
                     break;
@@ -168,6 +179,7 @@ public class TabCourse extends Fragment {
                     break;
             }
             pBoutonCoureur[i] = (BoutonTemporise) lView.findViewById(id);
+            pBoutonCoureur[i].ecrireTemporisation(TEMPORISATION);
             pBoutonCoureur[i].setBackgroundColor(getResources().getColor(R.color.bouton_nonselectionne));
         }
         afficherBouton();
@@ -190,7 +202,7 @@ public class TabCourse extends Fragment {
                     arreterAlerteCoureur();
                     pBoutonPause.setText("Reprendre");
                     pBoutonArreter.setEnabled(false);
-                    for (i = 0; i < 12; i++) {
+                    for (i = 0; i < pNbCoureur; i++) {
                         pBoutonCoureur[i].setEnabled(false);
                     }
                     pPauseDemarree = true;
@@ -199,7 +211,7 @@ public class TabCourse extends Fragment {
                     pChronometre.start();
                     pBoutonPause.setText("Pause");
                     pBoutonArreter.setEnabled(true);
-                    for (i = 0; i < 12; i++) {
+                    for (i = 0; i < pNbCoureur; i++) {
                         pBoutonCoureur[i].setEnabled(true);
                     }
                     pPauseDemarree = false;
@@ -223,10 +235,10 @@ public class TabCourse extends Fragment {
                 pTextViewNbTour.setText(String.format("%03d", lNbTour));
                 pCourseDemarree = false;
                 pNomCoureur = "";
-                pIndexCoureur = 12;
+                pIndexCoureur = pNbCoureur;
             }
         });
-        for (i = 0; i < 12; i++) {
+        for (i = 0; i < pNbCoureur; i++) {
             final int final_i = i;
             pBoutonCoureur[i].setOnClickListener(new View.OnClickListener() {
                 @Override
