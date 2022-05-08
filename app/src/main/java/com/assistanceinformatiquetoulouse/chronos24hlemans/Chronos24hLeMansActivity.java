@@ -113,7 +113,7 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
             case R.id.about :
                 AlertDialog.Builder lAlertDialog = new AlertDialog.Builder(this);
                 lAlertDialog.setTitle("Chronos24hLeMans\nVersion " + this.getString(R.string.version));
-                lAlertDialog.setMessage("Gestion des temps pour les coureurs des 24h du Mans rollers\n© AIT 2018 (pascalh)\n\nassistanceinformatiquetoulouse@gmail.com");
+                lAlertDialog.setMessage("Gestion des temps pour les coureurs des 24h du Mans rollers\n© AIT 2022 (pascalh)\n\nassistanceinformatiquetoulouse@gmail.com");
                 lAlertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                     }});

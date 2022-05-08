@@ -29,6 +29,7 @@ public class TabEquipe extends Fragment {
     private TextView pTextViewNbCoureurs;
     private EditText pEditTextNomCoureur;
     private Button pBoutonAjouter;
+    private TextView pTextViewActif;
     private CheckBox pBoiteActif;
     private ListView pListViewEquipe;
     // Attributs publics
@@ -58,6 +59,7 @@ public class TabEquipe extends Fragment {
         pTextViewNbCoureurs.setText(String.format("%d", pNbCoureurs));
         pEditTextNomCoureur = (EditText) lView.findViewById(R.id.editTextNomCoureur);
         pBoutonAjouter = (Button) lView.findViewById(R.id.buttonAjouter);
+        pTextViewActif = (TextView) lView.findViewById(R.id.textViewActif);
         pBoiteActif = (CheckBox) lView.findViewById(R.id.checkBoxActif);
         pListViewEquipe = (ListView) lView.findViewById(R.id.listViewEquipe);
         pListViewEquipe.setAdapter(pCoureurAdapter);
@@ -109,6 +111,7 @@ public class TabEquipe extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 pCoureurSelectionne = position;
+                pTextViewActif.setVisibility(View.VISIBLE);
                 pBoiteActif.setVisibility(View.VISIBLE);
                 pBoiteActif.setChecked(pEquipe.lireEtatActif(position));
                 //Toast.makeText(view.getContext(), String.format("Selection %d", position), Toast.LENGTH_SHORT).show();
@@ -129,6 +132,9 @@ public class TabEquipe extends Fragment {
                                 pNbCoureurs--;
                                 pTextViewNbCoureurs.setText(String.format("%d", pNbCoureurs));
                                 pCoureurAdapter.notifyDataSetChanged();
+                                pTextViewActif.setVisibility(View.INVISIBLE);
+                                pBoiteActif.setVisibility(View.INVISIBLE);
+                                pBoiteActif.setChecked(false);
                             }
                         })
                         .setNegativeButton("NON", new DialogInterface.OnClickListener() {
@@ -146,6 +152,7 @@ public class TabEquipe extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        pTextViewActif.setVisibility(View.INVISIBLE);
         pBoiteActif.setVisibility(View.INVISIBLE);
     }
 

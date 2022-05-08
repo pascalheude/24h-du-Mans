@@ -262,8 +262,12 @@ public class Equipe {
     // Supprime un coureur à la position
     public void supprimerCoureur(int position) {
         if (position <= pListeCoureurs.size()) {
+            if (pListeEtatsCoureurs.get(position)) {
+                pListeCoureursActifs.remove(pListeCoureurs.get(position));
+            }
+            else {
+            }
             pListeCoureurs.remove(position);
-            pListeCoureursActifs.remove(position);
             pListeEtatsCoureurs.remove(position);
             ecrireXMLEquipe();
         }

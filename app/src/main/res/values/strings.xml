@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Chronos24hLeMans</string>
-    <string name="version">2.0.3</string>
-    <string name="nom">Nom</string>
+    <string name="version">2.0.4</string>
+    <string name="nom">Nom d\'équipe</string>
     <string name="courriel">courses@roulezrose.com</string>
     <!-- Equipe -->
     <string name="entrez_le_nom_d_equipe">Entrez le nom d\'équipe</string>

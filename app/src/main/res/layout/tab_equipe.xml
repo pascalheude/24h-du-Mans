@@ -30,17 +30,22 @@
         android:textStyle="bold"
 		android:layout_below="@+id/editTextNomEquipe"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
+
 	<TextView
 		android:id="@+id/textViewNbCoureurs"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-		android:gravity="center"
-		android:background="#CECECE"
-		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="40dp"
+		android:layout_height="wrap_content"
 		android:layout_below="@+id/editTextNomEquipe"
 		android:layout_alignParentEnd="true"
-		android:layout_toEndOf="@+id/editTextNomCoureur" />
-    <TextView
+		android:layout_marginStart="20dp"
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_toEndOf="@+id/textView1"
+		android:background="#CECECE"
+		android:gravity="center"
+		android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	<TextView
         android:id="@+id/textViewListeCoureur"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,6 +74,19 @@
 		android:layout_marginStart="24dp"
 		android:gravity="center"
 		android:text="@string/ajouter" />
+
+	<TextView
+		android:id="@+id/textViewActif"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/checkBoxActif"
+		android:layout_alignParentEnd="true"
+		android:layout_marginEnd="10dp"
+		android:layout_marginBottom="0dp"
+		android:text="Actif"
+		android:textStyle="bold"
+		android:visibility="invisible" />
+
 	<CheckBox
 		android:id="@+id/checkBoxActif"
 		android:layout_width="40dp"
@@ -85,4 +103,5 @@
 		android:layout_centerHorizontal="true"
 		android:choiceMode="singleChoice"
 		android:listSelector="@android:color/darker_gray" />
+
 </RelativeLayout>
