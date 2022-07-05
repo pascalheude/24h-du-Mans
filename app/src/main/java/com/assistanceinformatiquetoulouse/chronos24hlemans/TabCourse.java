@@ -211,9 +211,7 @@ public class TabCourse extends Fragment {
                     pChronometre.start();
                     pBoutonPause.setText("Pause");
                     pBoutonArreter.setEnabled(true);
-                    for (i = 0; i < pNbCoureur; i++) {
-                        pBoutonCoureur[i].setEnabled(true);
-                    }
+                    afficherBouton();
                     pPauseDemarree = false;
                 }
             }
