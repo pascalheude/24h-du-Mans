@@ -11,12 +11,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
+import static com.assistanceinformatiquetoulouse.chronos24hlemans.Chronos24hLeMansActivity.aXMLFile;
 
 // Class TabEquipe
 public class TabEquipe extends Fragment {
@@ -37,16 +36,18 @@ public class TabEquipe extends Fragment {
 
     // Constructeur
     public TabEquipe() {
+        String lXML_file;
         pNbCoureurs = 0;
         pCoureurSelectionne = 0;
-        pEquipe = new Equipe(true, kNbCoureurMax);
+        //lXML_file = Chronos24hLeMansActivity.aAbsoluteInternalPath + File.separator + getContext().getString(R.string.fichier_xml);
+        pEquipe = new Equipe(true, aXMLFile, kNbCoureurMax);
     }
 
     //Méthode onCreateView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View lView = inflater.inflate(R.layout.tab_equipe, container, false);
-        pEquipe.lireXML(getActivity().getApplicationContext());
+        pEquipe.lireXML();
         pNbCoureurs = pEquipe.lireListeCoureurs().size();
         pCoureurAdapter = new CoureurAdapter(lView.getContext(), R.layout.list_view_coureur, R.id.textViewCoureur, pEquipe.lireListeCoureurs());
         pEditTextNomEquipe = (EditText) lView.findViewById(R.id.editTextNomEquipe);
@@ -68,11 +69,11 @@ public class TabEquipe extends Fragment {
             public void onClick(View view) {
                 if (pEditTextNomCoureur.length() == 0) {
                     Toast.makeText(view.getContext(), "Entrez un nom pour ajouter", Toast.LENGTH_LONG).show();
-                }
-			    else if (! pEquipe.ajouterCoureur(pEditTextNomCoureur.getText().toString())) {
+                } else if (pNbCoureurs < kNbCoureurMax) {
                     Toast.makeText(view.getContext(), "Nombre maximum de coureurs atteint", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else if (! pEquipe.ajouterCoureur(pEditTextNomCoureur.getText().toString())) {
+                    Toast.makeText(view.getContext(), "Impossible d'écrire le fichier XML", Toast.LENGTH_LONG).show();
+                } else {
                     pNbCoureurs++;
                     pTextViewNbCoureurs.setText(String.format("%d", pNbCoureurs));
                     pCoureurAdapter.notifyDataSetChanged();
@@ -121,14 +122,18 @@ public class TabEquipe extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final int lPosition = position;
+                final String lCoureur = pEquipe.lireCoureur(position);
                 final View lView = view;
                 new AlertDialog.Builder(view.getContext())
                         .setTitle("Confirmation")
-                        .setMessage(String.format("Suppression coureur %s ?", pEquipe.lireCoureur(lPosition)))
+                        .setMessage(String.format("Suppression coureur %s ?", lCoureur))
                         .setPositiveButton("OUI", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                Toast.makeText(lView.getContext(), String.format("Coureur %s supprimé", pEquipe.lireCoureur(lPosition)), Toast.LENGTH_LONG).show();
-                                pEquipe.supprimerCoureur(lPosition);
+                                if (pEquipe.supprimerCoureur(lPosition)) {
+                                    Toast.makeText(lView.getContext(), String.format("Coureur %s supprimé", lCoureur), Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(lView.getContext(), String.format("Coureur %s supprimé, mais impossible d'écrire le fichier XML", lCoureur), Toast.LENGTH_LONG).show();
+                                }
                                 pNbCoureurs--;
                                 pTextViewNbCoureurs.setText(String.format("%d", pNbCoureurs));
                                 pCoureurAdapter.notifyDataSetChanged();
@@ -140,7 +145,8 @@ public class TabEquipe extends Fragment {
                         .setNegativeButton("NON", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                             }
-                        }).show();
+                        })
+                        .show();
                 return (true);
             }
         });

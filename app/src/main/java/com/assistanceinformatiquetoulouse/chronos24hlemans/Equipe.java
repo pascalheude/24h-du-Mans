@@ -1,8 +1,6 @@
 package com.assistanceinformatiquetoulouse.chronos24hlemans;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 import java.util.ArrayList;
 import java.io.*;
 import org.xmlpull.v1.XmlPullParser;
@@ -13,9 +11,9 @@ import org.xmlpull.v1.XmlPullParserFactory;
 public class Equipe {
     // Atributs privés
     private static final String TAG = "Equipe";     // Tag pour le log
-    private boolean pLireXML;
+    private boolean pLireXML;                       // True pour lire le fichier XML
     private int pNbCoureurMax;                      // Nombre maximum de coureurs
-    private Context pContext;                       // Context pour lire et ecrire le fichier XML
+    private String pNomFichierXML;                  // Nom du fichier XML
     private String pNomEquipe;                      // Nom de l'équipe
     private ArrayList<String> pListeCoureurs;       // Liste des coureurs
     private ArrayList<String> pListeCoureursActifs; // Liste des coureurs actifs
@@ -30,7 +28,7 @@ public class Equipe {
         FileInputStream lFileInputStream;
         try {
             //lFile = new File(pContext.getFilesDir().getAbsolutePath(), "equipe.xml");
-            lFile = new File(Chronos24hLeMansActivity.aAbsoluteInternalPath, "equipe.xml");
+            lFile = new File(pNomFichierXML);
             lFileInputStream = new FileInputStream(lFile);
             lBytes = new byte[(int) lFile.length()];
             lFileInputStream.read(lBytes);
@@ -64,16 +62,15 @@ public class Equipe {
         int i;
         FileOutputStream lFileOutputStream;
         try {
-            //lFileOutputStream = new FileOutputStream(pContext.getFilesDir().getAbsolutePath() + File.separator + "equipe.xml");
-            lFileOutputStream = new FileOutputStream(Chronos24hLeMansActivity.aAbsoluteInternalPath + File.separator + "equipe.xml");
+            lFileOutputStream = new FileOutputStream(pNomFichierXML);
             ecrireChaine(lFileOutputStream, "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
             ecrireChaine(lFileOutputStream, String.format("<EQUIPE nom=\"%s\" nombre=\"%d\">", pNomEquipe, pListeCoureurs.size()));
             for (i = 0; i < pListeCoureurs.size(); i++) {
                 if (pListeEtatsCoureurs.get(i)) {
-                    ecrireChaine(lFileOutputStream, String.format("    <COUREUR actif=\"YES\">" + pListeCoureurs.get(i) + "</COUREUR>"));
+                    ecrireChaine(lFileOutputStream, String.format("<COUREUR actif=\"YES\">" + pListeCoureurs.get(i) + "</COUREUR>"));
                 }
                 else {
-                    ecrireChaine(lFileOutputStream, String.format("    <COUREUR actif=\"NO\">" + pListeCoureurs.get(i) + "</COUREUR>"));
+                    ecrireChaine(lFileOutputStream, String.format("<COUREUR actif=\"NO\">" + pListeCoureurs.get(i) + "</COUREUR>"));
                 }
             }
             ecrireChaine(lFileOutputStream, "</EQUIPE>");
@@ -82,7 +79,6 @@ public class Equipe {
             return (true);
         }
         catch(IOException e) {
-            Toast.makeText(pContext, "Impossible d'écrire le fichier XML", Toast.LENGTH_SHORT).show();
             Log.i(TAG, "Impossible d'écrire le fichier XML");
             return (false);
         }
@@ -161,19 +157,18 @@ public class Equipe {
     }
 
     // Constructeur
-    public Equipe(boolean lireXML, int nombre_coureur) {
+    public Equipe(boolean lireXML, String nom_fichier, int nombre_coureur) {
         this.pNbCoureurMax = nombre_coureur;
         this.pLireXML = lireXML;
-        this.pContext = null;
+        pNomFichierXML = nom_fichier;
         pListeCoureurs = new ArrayList<String>(nombre_coureur);
         pListeCoureursActifs = new ArrayList<String>(nombre_coureur);
         pListeEtatsCoureurs = new ArrayList<Boolean>(nombre_coureur);
     }
 
     // Méthode lireXML
-    public void lireXML(Context context) {
+    public void lireXML() {
         String lChaine;
-        this.pContext = context;
         if (this.pLireXML) {
             this.pLireXML = false;
             lChaine = lireXMLEquipe();
@@ -260,7 +255,8 @@ public class Equipe {
 
     // Méthode supprimerCoureur
     // Supprime un coureur à la position
-    public void supprimerCoureur(int position) {
+    // Retourne true si le fichier XML a été modifié, false sinon
+    public boolean supprimerCoureur(int position) {
         if (position <= pListeCoureurs.size()) {
             if (pListeEtatsCoureurs.get(position)) {
                 pListeCoureursActifs.remove(pListeCoureurs.get(position));
@@ -269,9 +265,10 @@ public class Equipe {
             }
             pListeCoureurs.remove(position);
             pListeEtatsCoureurs.remove(position);
-            ecrireXMLEquipe();
+            return (ecrireXMLEquipe());
         }
         else {
+            return (false);
         }
     }
 

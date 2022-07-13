@@ -31,6 +31,7 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
     // Attributs privés
     private static final int REQUEST_CODE = 10;
     private String pFichier;
+    private static String pAbsoluteExternalPath;
     private static Context pContext;
     private TabLayout pTabLayout;
     private ViewPager pViewPager;
@@ -38,8 +39,7 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
     private ResultatSQLiteOpenHelper pResultatSQLiteOpenHelper;
     private static SQLiteDatabase pSQLiteDatabase;
     // Attributs publics
-    public static String aAbsoluteInternalPath;
-    public static String aAbsoluteExternalPath;
+    public static String aXMLFile;
     public static Vibreur aVibreur;
     public static Parametres aParametres;
 
@@ -53,8 +53,8 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // Bloquer l'extinction automatique de l'écran
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        aAbsoluteInternalPath = this.getFilesDir().getAbsolutePath();
-        aAbsoluteExternalPath = this.getExternalFilesDir(null).getAbsolutePath();
+        aXMLFile = this.getFilesDir().getAbsolutePath() + File.separator + getString(R.string.fichier_xml);
+        pAbsoluteExternalPath = this.getExternalFilesDir(null).getAbsolutePath();
         aVibreur = new Vibreur();
         aParametres = new Parametres();
         pResultatSQLiteOpenHelper = new ResultatSQLiteOpenHelper(this);
@@ -146,18 +146,23 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
                 break;
             case R.id.exporter :
                 // Dumper la database des résultats dans un fichier CSV
-                pFichier = exporterDatabaseDansCSV(TabEquipe.pEquipe.lireNomEquipe());
-                if (pFichier != null) {
-                    new AlertDialog.Builder(this)
-                            .setTitle("Exportation")
-                            .setMessage(String.format("Le fichier suivant a été crée :\n%s", pFichier))
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) { }
-                            }).show();
-                    // Rend selectable le menu (R.id.envoyer)
-                    pToolbar.getMenu().findItem(R.id.envoyer).setEnabled(true);
-                }
-                else {
+                String lNomEquipe = TabEquipe.pEquipe.lireNomEquipe();
+                if (lNomEquipe != null) {
+                    pFichier = exporterDatabaseDansCSV(lNomEquipe);
+                    if (pFichier != null) {
+                        new AlertDialog.Builder(this)
+                                .setTitle("Exportation")
+                                .setMessage(String.format("Le fichier suivant a été crée :\n%s", pFichier))
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                    }
+                                }).show();
+                        // Rend selectable le menu (R.id.envoyer)
+                        pToolbar.getMenu().findItem(R.id.envoyer).setEnabled(true);
+                    } else {
+                    }
+                } else {
+                    Toast.makeText(pContext, "Nom d'équipe non renseigné\nExport impossible", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.envoyer :
@@ -222,7 +227,7 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
             int lNbLigne;
             int lNbColonne;
             lCursor = pSQLiteDatabase.rawQuery("select * from RESULTAT", null);
-            File lFile = new File(aAbsoluteExternalPath + File.separator + nom + ".csv");
+            File lFile = new File(pAbsoluteExternalPath + File.separator + nom + ".csv");
             FileWriter lFileWriter = new FileWriter(lFile);
 
             BufferedWriter lBufferedWriter = new BufferedWriter(lFileWriter);
@@ -258,7 +263,7 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
             }
             return (lFile.getAbsolutePath());
         } catch (IOException e) {
-            Toast.makeText(pContext, String.format("Erreur en écrivant le fichier %s", aAbsoluteExternalPath + File.separator + "resultats.csv"), Toast.LENGTH_LONG).show();
+            Toast.makeText(pContext, String.format("Erreur en écrivant le fichier %s", pAbsoluteExternalPath + File.separator + nom + ".csv"), Toast.LENGTH_LONG).show();
             return (null);
         }
     }

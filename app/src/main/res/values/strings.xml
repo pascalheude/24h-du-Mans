@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Chronos24hLeMans</string>
-    <string name="version">2.0.5</string>
+    <string name="version">2.0.6</string>
     <string name="nom">Nom d\'équipe</string>
     <string name="courriel">courses@roulezrose.com</string>
     <!-- Equipe -->
@@ -9,6 +9,7 @@
     <string name="liste_des_coureurs">Liste des coureurs</string>
     <string name="entrez_le_nom_du_coureur">Entrez le nom du coureur</string>
     <string name="ajouter">Ajouter</string>
+    <string name="fichier_xml">equipe.xml</string>
     <!-- Course -->
     <string name="arreter">Arrêter</string>
     <string name="pause">Pause</string>
