@@ -7,6 +7,11 @@
         android:title="Paramètres"
         app:showAsAction="never" />
     <item
+        android:id="@+id/supprimer"
+        android:checkable="false"
+        android:title="Supprimer XML"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/effacer"
         android:checkable="false"
         android:title="Effacer DB"

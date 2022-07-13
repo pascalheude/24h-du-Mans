@@ -9,6 +9,7 @@ import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -127,6 +128,25 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
                 lIntent.putExtra("vibreur_duree_in", aVibreur.lireDuree());
                 startActivityForResult(lIntent, REQUEST_CODE);
                 break;
+            case R.id.supprimer:
+                File lFile = new File(aXMLFile);
+                if (lFile.isFile()) {
+                    lFile.delete();
+                    Toast.makeText(pContext, String.format("Fichier %s supprimé", aXMLFile), Toast.LENGTH_LONG).show();
+                } else {
+                }
+                try {
+                    lFile.createNewFile();
+                } catch (IOException e) {
+                    Toast.makeText(pContext, String.format("Erreur création fichier %s", aXMLFile), Toast.LENGTH_LONG).show();
+                }
+                if (Build.VERSION.SDK_INT >= 21) {
+                    this.finishAndRemoveTask();
+                } else {
+                    this.finishAffinity();
+                    System.exit(0);
+                }
+                break;
             case R.id.effacer :
                 // Effacer le contenu de la database qui cootient les résultats
                 new AlertDialog.Builder(this)
@@ -197,7 +217,12 @@ public class Chronos24hLeMansActivity extends AppCompatActivity implements TabLa
                 break;
             case R.id.quitter :
                 // Sortir de l'application
-                this.finish();
+                if (Build.VERSION.SDK_INT >= 21) {
+                    this.finishAndRemoveTask();
+                } else {
+                    this.finishAffinity();
+                    System.exit(0);
+                }
                 break;
             default : ;
         }
