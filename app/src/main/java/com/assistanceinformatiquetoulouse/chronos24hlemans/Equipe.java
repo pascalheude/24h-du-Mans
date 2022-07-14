@@ -15,9 +15,7 @@ public class Equipe {
     private int pNbCoureurMax;                      // Nombre maximum de coureurs
     private String pNomFichierXML;                  // Nom du fichier XML
     private String pNomEquipe;                      // Nom de l'équipe
-    private ArrayList<String> pListeCoureurs;       // Liste des coureurs
-    private ArrayList<String> pListeCoureursActifs; // Liste des coureurs actifs
-    private ArrayList<Boolean> pListeEtatsCoureurs; // Liste des états coureurs (true => actif, false => inactif)
+    private ArrayList<Coureur> pListeCoureurs;       // Liste des coureurs
 
     // Méthode lireXMLEquipe
     // Retourne une chaine contenant le texte du fichier XML si le fichier a pu être lu, null sinon
@@ -27,7 +25,6 @@ public class Equipe {
         File lFile;
         FileInputStream lFileInputStream;
         try {
-            //lFile = new File(pContext.getFilesDir().getAbsolutePath(), "equipe.xml");
             lFile = new File(pNomFichierXML);
             lFileInputStream = new FileInputStream(lFile);
             lBytes = new byte[(int) lFile.length()];
@@ -66,11 +63,11 @@ public class Equipe {
             ecrireChaine(lFileOutputStream, "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
             ecrireChaine(lFileOutputStream, String.format("<EQUIPE nom=\"%s\" nombre=\"%d\">", pNomEquipe, pListeCoureurs.size()));
             for (i = 0; i < pListeCoureurs.size(); i++) {
-                if (pListeEtatsCoureurs.get(i)) {
-                    ecrireChaine(lFileOutputStream, String.format("<COUREUR actif=\"YES\">" + pListeCoureurs.get(i) + "</COUREUR>"));
+                if (pListeCoureurs.get(i).lireEtatActif()) {
+                    ecrireChaine(lFileOutputStream, String.format("<COUREUR actif=\"YES\">" + pListeCoureurs.get(i).lireNom() + "</COUREUR>"));
                 }
                 else {
-                    ecrireChaine(lFileOutputStream, String.format("<COUREUR actif=\"NO\">" + pListeCoureurs.get(i) + "</COUREUR>"));
+                    ecrireChaine(lFileOutputStream, String.format("<COUREUR actif=\"NO\">" + pListeCoureurs.get(i).lireNom() + "</COUREUR>"));
                 }
             }
             ecrireChaine(lFileOutputStream, "</EQUIPE>");
@@ -119,14 +116,7 @@ public class Equipe {
                         lTagName = lXmlPullParser.getName();
                         if (lTagName.equals("COUREUR")) {
                             if (pListeCoureurs.size() < pNbCoureurMax) {
-                                pListeCoureurs.add(lText);
-                                if (lActif) {
-                                    pListeCoureursActifs.add(lText);
-                                    pListeEtatsCoureurs.add(true);
-                                }
-                                else {
-                                    pListeEtatsCoureurs.add(false);
-                                }
+                                pListeCoureurs.add(new Coureur(lText, lActif));
                             }
                             else {
                             }
@@ -146,13 +136,9 @@ public class Equipe {
         catch(XmlPullParserException e) {
             Log.i(TAG, "Erreur en parsant fichier XML");
             pListeCoureurs.clear();
-            pListeCoureursActifs.clear();
-            pListeEtatsCoureurs.clear();
         }
         catch(IOException e) {
             pListeCoureurs.clear();
-            pListeCoureursActifs.clear();
-            pListeEtatsCoureurs.clear();
         }
     }
 
@@ -161,9 +147,7 @@ public class Equipe {
         this.pNbCoureurMax = nombre_coureur;
         this.pLireXML = lireXML;
         pNomFichierXML = nom_fichier;
-        pListeCoureurs = new ArrayList<String>(nombre_coureur);
-        pListeCoureursActifs = new ArrayList<String>(nombre_coureur);
-        pListeEtatsCoureurs = new ArrayList<Boolean>(nombre_coureur);
+        pListeCoureurs = new ArrayList<Coureur>();
     }
 
     // Méthode lireXML
@@ -198,7 +182,7 @@ public class Equipe {
     // Retourne le coureur à la position
     public String lireCoureur(int position) {
         if (position < pListeCoureurs.size()) {
-            return (pListeCoureurs.get(position));
+            return (pListeCoureurs.get(position).lireNom());
         }
         else {
             return(null);
@@ -207,50 +191,33 @@ public class Equipe {
 
     // Méthode lireEtatActif
     // Retourne l'état actif à la position
-    public Boolean lireEtatActif(int position) {
-        return (pListeEtatsCoureurs.get(position));
+    public boolean lireEtatActif(int position) {
+        return (pListeCoureurs.get(position).lireEtatActif());
     }
 
     // Méthode ecrireEtatActif
     // Ecrit l'état actif à la position et met à jour la liste des coureurs actifs
     public void ecrireEtatActif(int position, boolean actif) {
         int i;
-        pListeEtatsCoureurs.set(position, actif);
-        pListeCoureursActifs.clear();
-        for(i=0;i < pListeCoureurs.size();i++) {
-            if (pListeEtatsCoureurs.get(i)) {
-                pListeCoureursActifs.add(pListeCoureurs.get(i));
-            }
-            else {
-            }
-        }
+        pListeCoureurs.get(position).ecrireEtatActif(actif);
     }
 
     // Méthode lireListeCoureurs
     // Retourne la liste des coureurs
-    public ArrayList<String> lireListeCoureurs() {
+    public ArrayList<Coureur> lireListeCoureurs() {
         return (pListeCoureurs);
-    }
-
-    // Méthode lireListeCoureursActifs
-    // Retourne la liste de coureurs actifs
-    public ArrayList<String> lireListeCoureursActifs() {
-        return (pListeCoureursActifs);
     }
 
     // Méthode ajouterCoureur
     // Ajoute le coureur dans l'équipe si cela est possible
     // Retourne true si le coureur a été ajouté, false sinon
-    public boolean ajouterCoureur(String coureur) {
+    public boolean ajouterCoureur(String nom) {
         if (pListeCoureurs.size() < pNbCoureurMax) {
-            pListeCoureurs.add(coureur);
-            pListeCoureursActifs.add(coureur);
-            pListeEtatsCoureurs.add(true);
+            pListeCoureurs.add(new Coureur(nom, true));
             return (ecrireXMLEquipe());
+        } else {
+            return (false);
         }
-	    else {
-	        return (false);
-	    }
     }
 
     // Méthode supprimerCoureur
@@ -258,13 +225,7 @@ public class Equipe {
     // Retourne true si le fichier XML a été modifié, false sinon
     public boolean supprimerCoureur(int position) {
         if (position <= pListeCoureurs.size()) {
-            if (pListeEtatsCoureurs.get(position)) {
-                pListeCoureursActifs.remove(pListeCoureurs.get(position));
-            }
-            else {
-            }
             pListeCoureurs.remove(position);
-            pListeEtatsCoureurs.remove(position);
             return (ecrireXMLEquipe());
         }
         else {
@@ -272,9 +233,24 @@ public class Equipe {
         }
     }
 
+    // Méthode lirePositionCoureur
+    // Retourne la position du coureur dans la liste
+    // Si le coureur n'est pas dans la liste, retourne pNbCoureurMax
+    public int lirePositionCoureur(String nom) {
+        int i;
+        for (i = 0; i < pListeCoureurs.size(); i++) {
+            if (pListeCoureurs.get(i).lireNom().equals(nom)) {
+                return (i);
+            } else {
+            }
+        }
+        return (pNbCoureurMax);
+    }
+
     // Methode lireProchainCoureur
     // Retourne le prochain coureur actif de la liste
-    public String lireProchainCoureurActif(String coureur) {
+    // Méthode jamais utilisée
+    /* TBR => public String lireProchainCoureurActif(String coureur) {
         int position = pListeCoureursActifs.indexOf(coureur) + 1;
         if (position >= pListeCoureursActifs.size()) {
             position = 0;
@@ -282,11 +258,12 @@ public class Equipe {
         else {
         }
         return (pListeCoureursActifs.get(position));
-    }
+    } => TBR */
 
     // Méthode inverserCoureurs
     // Inverse la position de 2 coureurs dans toutes les listes
-    public void inverserCoureurs(int position1, int position2) {
+    // Méthode jamais utilisée
+    /* TBR => public void inverserCoureurs(int position1, int position2) {
         int i;
         boolean lActif = pListeEtatsCoureurs.get(position1);
         String lCoureur = pListeCoureurs.get(position1);
@@ -303,7 +280,7 @@ public class Equipe {
             }
         }
         ecrireXMLEquipe();
-    }
+    } => TBR */
 
     // Méthode lireNombreMaxCoureur
     // Retourne le nommbre maximum de coureurs

@@ -75,26 +75,33 @@
 		android:gravity="center"
 		android:text="@string/ajouter" />
 
+	<Button
+		android:id="@+id/buttonSupprimer"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_below="@+id/editTextNomCoureur"
+		android:layout_marginEnd="24dp"
+		android:gravity="center"
+		android:text="@string/supprimer" />
 	<TextView
 		android:id="@+id/textViewActif"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_above="@+id/checkBoxActif"
+		android:layout_above="@+id/listViewEquipe"
 		android:layout_alignParentEnd="true"
 		android:layout_marginEnd="10dp"
 		android:layout_marginBottom="0dp"
 		android:text="Actif"
-		android:textStyle="bold"
-		android:visibility="invisible" />
-
-	<CheckBox
+		android:textStyle="bold" />
+	<!-- TBR => CheckBox
 		android:id="@+id/checkBoxActif"
 		android:layout_width="40dp"
 		android:layout_height="40dp"
 		android:layout_above="@+id/listViewEquipe"
 		android:layout_alignParentRight="true"
 		android:layout_marginEnd="10dp"
-		android:visibility="invisible" />
+		android:visibility="invisible" / => TBR -->
     <ListView
 		android:id="@+id/listViewEquipe"
 		android:layout_width="wrap_content"
@@ -103,5 +110,4 @@
 		android:layout_centerHorizontal="true"
 		android:choiceMode="singleChoice"
 		android:listSelector="@android:color/darker_gray" />
-
 </RelativeLayout>

@@ -5,52 +5,73 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 
 // Class CoureurAdapter
-public class CoureurAdapter extends ArrayAdapter<String> {
+public class CoureurAdapter extends ArrayAdapter<Coureur> {
     // Atributs privés
     private Context pContext;
     private int pLayoutResourceId;
-    private int pTextViewResourceId;
-    private ArrayList<String> pListeCoureurs;
-    private LayoutInflater pInflater;
+    private ArrayList<Coureur> pListeCoureurs;
 
     // Constructeur
-    public CoureurAdapter(Context context, int resource, int textViewResourceId, ArrayList<String> listeCoureurs) {
+    public CoureurAdapter(Context context, int resource, int textViewResourceId, ArrayList<Coureur> listeCoureurs) {
         super(context, resource, textViewResourceId, listeCoureurs);
         this.pContext = context;
         this.pLayoutResourceId = resource;
-        this.pTextViewResourceId = textViewResourceId;
         this.pListeCoureurs = listeCoureurs;
-        this.pInflater = LayoutInflater.from(pContext);
+    }
+
+    private class ViewHolder {
+        private int pPosition;
+        private CheckBox pCheckBoxActif;
+        private TextView pNomCoureur;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View lView = convertView;
-        if (lView == null) {
-            lView = pInflater.inflate(pLayoutResourceId, parent, false);
+        final ViewHolder lViewHolder;
+        if (convertView == null) {
+            lViewHolder = new ViewHolder();
+            LayoutInflater lLayoutInflater = (LayoutInflater) pContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = lLayoutInflater.inflate(pLayoutResourceId, parent, false);
+            lViewHolder.pPosition = position;
+            lViewHolder.pCheckBoxActif = (CheckBox) convertView.findViewById(R.id.checkboxCoureurActif);
+            lViewHolder.pNomCoureur = (TextView) convertView.findViewById(R.id.textViewCoureur);
+            convertView.setTag(lViewHolder);
         }
         else {
+            lViewHolder = (ViewHolder) convertView.getTag();
         }
         if ((pListeCoureurs != null) && (position < pListeCoureurs.size())) {
-            TextView lTextView = (TextView) lView.findViewById(pTextViewResourceId);
-            lTextView.setText(pListeCoureurs.get(position));
+            lViewHolder.pCheckBoxActif.setChecked(pListeCoureurs.get(position).lireEtatActif());
+            lViewHolder.pNomCoureur.setText(pListeCoureurs.get(position).lireNom());
         }
         else {
         }
-        return(lView);
+        lViewHolder.pCheckBoxActif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (pListeCoureurs.get(lViewHolder.pPosition).lireEtatActif()) {
+                    pListeCoureurs.get(lViewHolder.pPosition).ecrireEtatActif(false);
+                } else {
+                    pListeCoureurs.get(lViewHolder.pPosition).ecrireEtatActif(true);
+                }
+            }
+        });
+        return (convertView);
     }
 
     @Override
     public int getCount() {
-        return(pListeCoureurs.size());
+        return (pListeCoureurs.size());
     }
 
     @Override
-    public String getItem(int position) {
+    public Coureur getItem(int position) {
         return (pListeCoureurs.get(position));
     }
 
