@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,8 @@ public class TabCourse extends Fragment {
     private TextView pTextViewNbTour;
     private Chronometer pChronometre;
     private MediaPlayer pMediaPlayer;
+    private boolean pEcranVerrouille;
+    private FloatingActionButton pFAB;
 
     // Méthode programmerAlerteCoureur
     private void programmerAlerteCoureur(String nom) {
@@ -123,6 +126,7 @@ public class TabCourse extends Fragment {
         pNomCoureur = "";
         pCourseDemarree = false;
         pPauseDemarree = false;
+        pEcranVerrouille = false;
         pAlerteCoureur = null;
         pMediaPlayer = MediaPlayer.create(getContext(), R.raw.woodpecker);
     }
@@ -182,7 +186,6 @@ public class TabCourse extends Fragment {
             pBoutonCoureur[i].ecrireTemporisation(TEMPORISATION);
             pBoutonCoureur[i].setBackgroundColor(getResources().getColor(R.color.bouton_nonselectionne));
         }
-        afficherBouton();
         pBoutonPause = (Button) lView.findViewById(R.id.ButtonPause);
         pBoutonArreter = (Button) lView.findViewById(R.id.ButtonArreter);
         pTextViewNbTour = (TextView) lView.findViewById(R.id.textViewNbTour);
@@ -192,6 +195,7 @@ public class TabCourse extends Fragment {
             pBoutonArreter.setEnabled(false);
         } else {
         }
+        pFAB = (FloatingActionButton) lView.findViewById(R.id.fab);
         pBoutonPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -234,6 +238,32 @@ public class TabCourse extends Fragment {
                 pCourseDemarree = false;
                 pNomCoureur = "";
                 pIndexCoureur = pNbCoureur;
+            }
+        });
+        pFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int i;
+                if (!pEcranVerrouille) {
+                    pEcranVerrouille = true;
+                    for (i = 0; i < pNbCoureur; i++) {
+                        pBoutonCoureur[i].setEnabled(false);
+                    }
+                    pFAB.setImageResource(R.drawable.ic_unlock);
+                } else {
+                }
+            }
+        });
+        pFAB.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (pEcranVerrouille) {
+                    pEcranVerrouille = false;
+                    afficherBouton();
+                    pFAB.setImageResource(R.drawable.ic_lock);
+                } else {
+                }
+                return (true);
             }
         });
         for (i = 0; i < pNbCoureur; i++) {
@@ -280,8 +310,17 @@ public class TabCourse extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        int i;
         if (isVisibleToUser == true) {
-            afficherBouton();
+            if (pEcranVerrouille) {
+                for (i = 0; i < pNbCoureur; i++) {
+                    pBoutonCoureur[i].setEnabled(false);
+                }
+                pFAB.setImageResource(R.drawable.ic_unlock);
+            } else {
+                afficherBouton();
+                pFAB.setImageResource(R.drawable.ic_lock);
+            }
         }
         else {
         }

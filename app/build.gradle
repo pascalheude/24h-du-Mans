@@ -7,7 +7,7 @@ android {
         applicationId "com.assistanceinformatiquetoulouse.chronos24hlemans"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 210
+        versionCode 220
         versionName '2.1.0'
         archivesBaseName = "AIT-Chronos24hLeMans-$versionName"
     }

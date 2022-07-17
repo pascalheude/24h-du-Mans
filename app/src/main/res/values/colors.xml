@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="bouton_nonselectionne">#F781F3</color>
     <color name="bouton_selectionne">#819FF7</color>
+    <color name="colorGrey">#909090</color>
 </resources>
